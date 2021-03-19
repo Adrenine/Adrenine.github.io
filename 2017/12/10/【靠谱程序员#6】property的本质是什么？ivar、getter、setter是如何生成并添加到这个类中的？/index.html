@@ -1,0 +1,650 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="【靠谱程序员】系列目录
+问：@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？
+答：1、@property 的本质1@property = ivar + getter + setter
+翻译出来就是：属性（property）= 实例变量（ivar）+ 存取方法（getter和setter）实例变量用于存储数据存取方法用来读取写入该实例变量的数据（">
+  <meta name="author" content="XieBangyao">
+  <meta name="keywords" content="">
+  
+  <title>property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？ - XieBangyao&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"adrenine.github.io","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>[object Object]</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-12-10 09:26" pubdate>
+        2017年12月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月17日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="【靠谱程序员】系列目录"><a href="#【靠谱程序员】系列目录" class="headerlink" title="【靠谱程序员】系列目录"></a><a href="https://adrenine.github.io/post/10fb75fe.html">【靠谱程序员】系列目录</a></h3><hr>
+<h3 id="问："><a href="#问：" class="headerlink" title="问："></a>问：</h3><p>@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</p>
+<h3 id="答："><a href="#答：" class="headerlink" title="答："></a>答：</h3><h4 id="1、-property-的本质"><a href="#1、-property-的本质" class="headerlink" title="1、@property 的本质"></a>1、@property 的本质</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">@property</span> = ivar + <span class="hljs-keyword">getter</span> + <span class="hljs-keyword">setter</span><br></code></pre></td></tr></table></figure>
+<p>翻译出来就是：<br>属性（property）= 实例变量（ivar）+ 存取方法（getter和setter）<br>实例变量用于存储数据<br>存取方法用来读取写入该实例变量的数据<br>（有swift开发经验的人对这个感触应该表较深（存储属性和计算属性））<br>编译器会自动为@property添加实例变量和存取方法，当你重写存取方法中的一个的时候不用手动写实例变量：<code>@synthesize name = _name;</code>，但是当你同时重写setter和getter方法时，你需要添加这行代码才能通过编译。</p>
+<span id="more"></span>
+
+<hr>
+<h4 id="2、ivar、getter、setter-是如何生成并添加到这个类中的？"><a href="#2、ivar、getter、setter-是如何生成并添加到这个类中的？" class="headerlink" title="2、ivar、getter、setter 是如何生成并添加到这个类中的？"></a>2、ivar、getter、setter 是如何生成并添加到这个类中的？</h4><p>“自动合成”( autosynthesis)<br>完成属性定义后，编译器会自动编写访问这些属性所需的方法，此过程叫做“自动合成”(autosynthesis)。需要强调的是，这个过程由编译 器在编译期执行，所以编辑器里看不到这些“合成方法”(synthesized method)的源代码。除了生成方法代码 getter、setter 之外，编译器还要自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，以此作为实例变量的名字。在前例中，会生成两个实例变量，其名称分别为 _firstName 与 _lastName。也可以在类的实现代码里通过 @synthesize 语法来指定实例变量的名字。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">Person</span></span><br><span class="hljs-keyword">@synthesize</span> firstName = _myFirstName;<br><span class="hljs-keyword">@synthesize</span> lastName = _myLastName;<br><span class="hljs-keyword">@end</span><br></code></pre></td></tr></table></figure>
+<p>反编译相关的代码，他大致生成了五个东西</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs elixir">OBJC_IVAR_<span class="hljs-variable">$类</span>名<span class="hljs-variable">$属</span>性名称 ：该属性的“偏移量” (offset)，这个偏移量是“硬编码” (hardcode)，表示该变量距离存放对象的内存区域的起始地址有多远。<br>setter 与 getter 方法对应的实现函数<br>ivar_list ：成员变量列表<br>method_list ：方法列表<br>prop_list ：属性列表<br></code></pre></td></tr></table></figure>
+<p>也就是说我们每次在增加一个属性，系统都会在 ivar_list 中添加一个成员变量的描述，在 method_list 中增加 setter 与 getter 方法的描述，在属性列表中增加一个属性的描述，然后计算该属性在对象中的偏移量，然后给出 setter 与 getter 方法对应的实现，在 setter 方法中从偏移量的位置开始赋值，在 getter 方法中从偏移量开始取值，为了能够读取正确字节数，系统对象偏移量的指针类型进行了类型强转。</p>
+<hr>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>property在runtime中是objc_property_t定义如下:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> objc_property *objc_property_t;<br></code></pre></td></tr></table></figure>
+<p>而objc_property是一个结构体，包括name和attributes，定义如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">struct</span> property_t &#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *attributes;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>而attributes本质是objc_property_attribute_t，定义了property的一些属性，定义如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">/// Defines a property attribute</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;           <span class="hljs-comment">/**&lt; The name of the attribute */</span><br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *value;          <span class="hljs-comment">/**&lt; The value of the attribute (usually empty) */</span><br>&#125; objc_property_attribute_t;<br></code></pre></td></tr></table></figure>
+<p>而attributes的具体内容是什么呢？其实，包括：类型，原子性，内存语义和对应的实例变量。</p>
+<p>例如：我们定义一个string的property<code>@property (nonatomic, copy) NSString *string;</code>，通过 <code>property_getAttributes(property)</code>获取到attributes并打印出来之后的结果为T@”NSString”，C，N，V_string</p>
+<p>其中T就代表类型，可参阅<a target="_blank" rel="noopener" href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100-SW1">Type Encodings</a>，C就代表Copy，N代表nonatomic，V就代表对于的实例变量。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Code</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">c</td>
+<td align="left">A char</td>
+</tr>
+<tr>
+<td align="center">i</td>
+<td align="left">An int</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td align="left">A short</td>
+</tr>
+<tr>
+<td align="center">l</td>
+<td align="left">A long l is treated as a 32-bit quantity on 64-bit programs.</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="left">A long long</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="left">An unsigned char</td>
+</tr>
+<tr>
+<td align="center">I</td>
+<td align="left">An unsigned int</td>
+</tr>
+<tr>
+<td align="center">S</td>
+<td align="left">An unsigned short</td>
+</tr>
+<tr>
+<td align="center">L</td>
+<td align="left">An unsigned long</td>
+</tr>
+<tr>
+<td align="center">Q</td>
+<td align="left">An unsigned long long</td>
+</tr>
+<tr>
+<td align="center">f</td>
+<td align="left">A float</td>
+</tr>
+<tr>
+<td align="center">d</td>
+<td align="left">A double</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="left">A C++ bool or a C99 _Bool</td>
+</tr>
+<tr>
+<td align="center">v</td>
+<td align="left">A void</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="left">A character string (char *)</td>
+</tr>
+<tr>
+<td align="center">@</td>
+<td align="left">An object (whether statically typed or typed id)</td>
+</tr>
+<tr>
+<td align="center">#</td>
+<td align="left">A class object (Class)</td>
+</tr>
+<tr>
+<td align="center">:</td>
+<td align="left">A method selector (SEL)</td>
+</tr>
+<tr>
+<td align="center">[array type]</td>
+<td align="left">An array</td>
+</tr>
+<tr>
+<td align="center">{name=type…}</td>
+<td align="left">A structure</td>
+</tr>
+<tr>
+<td align="center">(name=type…)</td>
+<td align="left">A union</td>
+</tr>
+<tr>
+<td align="center">bnum</td>
+<td align="left">A bit field of num bits</td>
+</tr>
+<tr>
+<td align="center">^type</td>
+<td align="left">A pointer to type</td>
+</tr>
+<tr>
+<td align="center">?</td>
+<td align="left">An unknown type (among other things， this code is used for function pointers)</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#57;&#x34;&#x40;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;">&#95;&#x31;&#57;&#57;&#x34;&#x40;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
+<li><a href="https://adrenine.github.io/">Blog - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Adrenine">Github - Adrenine</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A0%E8%B0%B1%E7%A8%8B%E5%BA%8F%E5%91%98/">靠谱程序员</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A0%E8%B0%B1%E7%A8%8B%E5%BA%8F%E5%91%98/">靠谱程序员</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B1%9E%E6%80%A7/">属性</a>
+                    
+                      <a class="hover-with-bg" href="/tags/runtime/">runtime</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/12/16/%E3%80%90%E9%9D%A0%E8%B0%B1%E7%A8%8B%E5%BA%8F%E5%91%98#7%E3%80%91%E5%9C%A8@protocol%20%E5%92%8C%20category%20%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20@property/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在@protocol 和 category 中如何使用 @property</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/12/09/%E3%80%90%E9%9D%A0%E8%B0%B1%E7%A8%8B%E5%BA%8F%E5%91%98#5%E3%80%91%E5%A6%82%E4%BD%95%E8%AE%A9%E8%87%AA%E5%B7%B1%E7%9A%84%E7%B1%BB%E7%94%A8-copy-%E4%BF%AE%E9%A5%B0%E7%AC%A6%EF%BC%9F%E5%A6%82%E4%BD%95%E9%87%8D%E5%86%99%E5%B8%A6-copy-%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84-setter%EF%BC%9F/">
+                        <span class="hidden-mobile">如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MTc4Ni8xODMzMg==">
+    <script type="text/javascript">
+      Fluid.utils.lazyComments('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
