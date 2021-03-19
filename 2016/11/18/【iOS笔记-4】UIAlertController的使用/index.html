@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="【主页】系列文章目录【iOS笔记】系列目录
+由于UIAlertView在iOS 9中已经被废弃，我们找到UIAlertController来代替它来实现弹出框的功能。
+UIAlertController在iOS8中，UIAlertController在功能上是和UIAlertView以及UIActionSheet相同的，UIAlertController以一种模块化替换的方式来代替这两货的功能和作">
+  <meta name="author" content="XieBangyao">
+  <meta name="keywords" content="">
+  
+  <title>UIAlertController的使用 - XieBangyao&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"adrenine.github.io","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>[object Object]</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="UIAlertController的使用">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-11-18 19:48" pubdate>
+        2016年11月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      41
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">UIAlertController的使用</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月17日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h3><hr>
+<p>由于UIAlertView在iOS 9中已经被废弃，我们找到UIAlertController来代替它来实现弹出框的功能。</p>
+<h3 id="UIAlertController"><a href="#UIAlertController" class="headerlink" title="UIAlertController"></a>UIAlertController</h3><p>在iOS8中，UIAlertController在功能上是和UIAlertView以及UIActionSheet相同的，UIAlertController以一种模块化替换的方式来代替这两货的功能和作用。是使用对话框(alert)还是使用上拉菜单(action sheet)，就取决于在创建控制器时，您是如何设置首选样式的。</p>
+<span id="more"></span>
+
+<h4 id="默认对话框"><a href="#默认对话框" class="headerlink" title="默认对话框"></a>默认对话框</h4><p>您可以比较一下两种不同的创建对话框的代码，创建基础UIAlertController的代码和创建UIAlertView的代码非常相似：<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertController</span> *alertController = [<span class="hljs-built_in">UIAlertController</span> alertControllerWithTitle: <span class="hljs-string">@&quot;标题&quot;</span><br>  message:<span class="hljs-string">@&quot;这个是UIAlertController的默认样式&quot;</span> preferredStyle:<span class="hljs-built_in">UIAlertControllerStyleAlert</span>];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> alertController <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertController</span>(title:<span class="hljs-string">&quot;标题&quot;</span>, message: <span class="hljs-string">&quot;这个是UIAlertController的默认样式&quot;</span>, preferredStyle:<br>  <span class="hljs-type">UIAlertControllerStyle</span>.<span class="hljs-type">Alert</span>)<br></code></pre></td></tr></table></figure>
+<p>同创建UIAlertView相比，我们无需指定代理，也无需在初始化过程中指定按钮。不过要特别注意第三个参数，要确定您选择的是对话框样式还是上拉菜单样式。<br>通过创建UIAlertAction的实例，您可以将动作按钮添加到控制器上。UIAlertAction由标题字符串、样式以及当用户选中该动作时运行的代码块组成。通过UIAlertActionStyle，您可以选择如下三种动作样式：常规(default)、取消(cancel)以及警示(destruective)。<br>为了实现原来我们在创建UIAlertView时创建的按钮效果，我们只需创建这两个动作按钮并将它们添加到控制器上即可。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertAction</span> *cancelAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<span class="hljs-string">@&quot;取消&quot;</span><br>  style:<span class="hljs-built_in">UIAlertActionStyleCancel</span> handler:<span class="hljs-literal">nil</span>];<br><span class="hljs-built_in">UIAlertAction</span> *okAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<span class="hljs-string">@&quot;好的&quot;</span><br>  style:<span class="hljs-built_in">UIAlertActionStyleDefault</span> handler:<span class="hljs-literal">nil</span>];<br><br>[alertController addAction:cancelAction];<br>[alertController addAction:okAction];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift">varcancelAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;取消&quot;</span>,<br>  style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Cancel</span>, handler: <span class="hljs-literal">nil</span>)<br>varokAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;好的&quot;</span>,<br>  style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Default</span>, handler: <span class="hljs-literal">nil</span>)<br>alertController.addAction(cancelAction)<br>alertController.addAction(okAction)<br></code></pre></td></tr></table></figure>
+<p>最后，我们只需显示这个对话框视图控制器即可：<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">[<span class="hljs-keyword">self</span> presentViewController:alertController animated:<span class="hljs-literal">YES</span> completion:<span class="hljs-literal">nil</span>];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">self</span>.presentViewController(alertController, animated:<span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-979e2d28c68def5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="UIAlertController默认样式"></p>
+<p>按钮显示的次序取决于它们添加到对话框控制器上的次序。一般来说，根据苹果官方制定的《iOS 用户界面指南》，在拥有两个按钮的对话框中，您应当将取消按钮放在左边。要注意，取消按钮是唯一的，如果您添加了第二个取消按钮，那么你就会得到如下的一个运行时异常：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">*Terminating app due to uncaught exception<br>‘<span class="hljs-built_in">NSInternalInconsistencyException</span>’, reason: ‘<span class="hljs-built_in">UIAlertController</span> can only<br>have one action with a style of <span class="hljs-built_in">UIAlertActionStyleCancel</span>’<br></code></pre></td></tr></table></figure>
+<hr>
+<h4 id="“警示”样式"><a href="#“警示”样式" class="headerlink" title="“警示”样式"></a>“警示”样式</h4><p>什么是“警示”样式呢？我们先不着急回答这个问题，先来看一下下面关于“警示”样式的简单示例。在这个示例中，我们将前面的示例中的“好的”按钮替换为了“重置”按钮。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertAction</span> *resetAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<span class="hljs-string">@&quot;重置&quot;</span><br>  style:<span class="hljs-built_in">UIAlertActionStyleDestructive</span> handler:<span class="hljs-literal">nil</span>];<br>[alertController addAction:resetAction];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> resetAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;重置&quot;</span>,<br>  style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Destructive</span>, handler: <span class="hljs-literal">nil</span>)<br>alertController.addAction(resetAction)<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-63d0329524c35765.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="“警示”样式"></p>
+<p>可以看出，我们新增的那个“重置”按钮变成了红色。根据苹果官方的定义，“警示”样式的按钮是用在可能会改变或删除数据的操作上。因此用了红色的醒目标识来警示用户。</p>
+<hr>
+<h3 id="文本对话框"><a href="#文本对话框" class="headerlink" title="文本对话框"></a>文本对话框</h3><p>UIAlertController<br>极大的灵活性意味着您不必拘泥于内置样式。以前我们只能在默认视图、文本框视图、密码框视图、登录和密码输入框视图中选择，现在我们可以向对话框中添加任意数目的UITextField对象，并且可以使用所有的UITextField特性。当您向对话框控制器中添加文本框时，您需要指定一个用来配置文本框的代码块。<br>举个栗子吧，要重新建立原来的登录和密码样式对话框，我们可以向其中添加两个文本框，然后用合适的占位符来配置它们，最后将密码输入框设置使用安全文本输入。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertController</span> *alertController = [<span class="hljs-built_in">UIAlertController</span> alertControllerWithTitle:<br>  <span class="hljs-string">@&quot;文本对话框&quot;</span>message:<span class="hljs-string">@&quot;登录和密码对话框示例&quot;</span><br>  preferredStyle:<span class="hljs-built_in">UIAlertControllerStyleAlert</span>];<br>[alertController addTextFieldWithConfigurationHandler:<br>  ^(<span class="hljs-built_in">UITextField</span> *textField)&#123;<br>    textField.placeholder = <span class="hljs-string">@&quot;登录&quot;</span>;<br>&#125;];<br><br>[alertController addTextFieldWithConfigurationHandler:<br>  ^(<span class="hljs-built_in">UITextField</span> *textField) &#123;<br>    textField.placeholder = <span class="hljs-string">@&quot;密码&quot;</span>;<br>    textField.secureTextEntry = <span class="hljs-literal">YES</span>;<br>&#125;];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs swift">alertController.addTextFieldWithConfigurationHandler &#123;<br>  (textField: <span class="hljs-type">UITextField</span>!) -&gt; <span class="hljs-type">Voidin</span><br>  textField.placeholder <span class="hljs-operator">=</span><span class="hljs-string">&quot;登录&quot;</span><br>&#125;<br><br>alertController.addTextFieldWithConfigurationHandler &#123;<br>  (textField: <span class="hljs-type">UITextField</span>!) -&gt; <span class="hljs-type">Voidin</span><br>  textField.placeholder <span class="hljs-operator">=</span><span class="hljs-string">&quot;密码&quot;</span><br>  textField.secureTextEntry <span class="hljs-operator">=</span><span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在“好的”按钮按下时，我们让程序读取文本框中的值。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertAction</span> *okAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<br>  <span class="hljs-string">@&quot;好的&quot;</span>style:<span class="hljs-built_in">UIAlertActionStyleDefault</span> handler:<br>  ^(<span class="hljs-built_in">UIAlertAction</span> *action) &#123;<br>    <span class="hljs-built_in">UITextField</span> *login = alertController.textFields.firstObject;<br>    <span class="hljs-built_in">UITextField</span> *password = alertController.textFields.lastObject;<br>    ...<br>&#125;];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> okAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;好的&quot;</span>, style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Default</span>) &#123;<br>  (action: <span class="hljs-type">UIAlertAction</span>!) -&gt; <span class="hljs-type">Voidin</span><br>  <span class="hljs-keyword">var</span> login <span class="hljs-operator">=</span> alertController.textFields<span class="hljs-operator">?</span>.first <span class="hljs-keyword">as</span> <span class="hljs-type">UITextField</span><br>  <span class="hljs-keyword">var</span> password <span class="hljs-operator">=</span> alertController.textFields<span class="hljs-operator">?</span>.last <span class="hljs-keyword">as</span> <span class="hljs-type">UITextField</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如果我们想要实现UIAlertView中的委托方法alertViewShouldEnableOtherButton:方法的话可能会有一些复杂。假定我们要让“登录”文本框中至少有3个字符才能激活“好的”按钮。很遗憾的是，在UIAlertController中并没有相应的委托方法，因此我们需要向“登录”文本框中添加一个Observer。Observer模式定义对象间的一对多的依赖关系,当一个对象的状态发生改变时,所有依赖于它的对象都得到通知并被自动更新。我们可以在构造代码块中添加如下的代码片段来实现。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">[alertController addTextFieldWithConfigurationHandler:<br>  ^(<span class="hljs-built_in">UITextField</span> *textField)&#123;<br>    ...<br>    [[<span class="hljs-built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="hljs-keyword">self</span><br>      selector:<span class="hljs-keyword">@selector</span>(alertTextFieldDidChange:) name:<br>      <span class="hljs-built_in">UITextFieldTextDidChangeNotification</span> object:textField];<br>&#125;];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs swift">alertController.addTextFieldWithConfigurationHandler &#123;<br>  (textField: <span class="hljs-type">UITextField</span>!) -&gt; <span class="hljs-type">Void</span> <span class="hljs-keyword">in</span><br>  <span class="hljs-operator">...</span><br>  <span class="hljs-type">NSNotificationCenter</span>.defaultCenter().addObserver(<span class="hljs-keyword">self</span>, selector:<br>    <span class="hljs-type">Selector</span>(<span class="hljs-string">&quot;alertTextFieldDidChange:&quot;</span>), name:<br>    <span class="hljs-type">UITextFieldTextDidChangeNotification</span>, object: textField)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>当视图控制器释放的时候我们需要移除这个Observer，我们通过在每个按钮动作的handler代码块（还有其他任何可能释放视图控制器的地方）中添加合适的代码来实现它。比如说在okAction这个按钮动作中：<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertAction</span> *okAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<br>  <span class="hljs-string">@&quot;好的&quot;</span>style:<span class="hljs-built_in">UIAlertActionStyleDefault</span> handler:<br>  ^(<span class="hljs-built_in">UIAlertAction</span> *action) &#123;<br>    ...<br>    [[<span class="hljs-built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="hljs-keyword">self</span><br>    name:<span class="hljs-built_in">UITextFieldTextDidChangeNotification</span> object:<span class="hljs-literal">nil</span>];<br>&#125;];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> okAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;好的&quot;</span>, style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Default</span>) &#123;<br>  (action: <span class="hljs-type">UIAlertAction</span>!) -&gt; <span class="hljs-type">Void</span> <span class="hljs-keyword">in</span><br>  <span class="hljs-operator">...</span><br>  <span class="hljs-type">NSNotificationCenter</span>.defaultCenter().removeObserver(<span class="hljs-keyword">self</span>, name:<br>  <span class="hljs-type">UITextFieldTextDidChangeNotification</span>, object: <span class="hljs-literal">nil</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在显示对话框之前，我们要冻结“好的”按钮<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">okAction.enabled = <span class="hljs-literal">NO</span>;<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift">okAction.enabled <span class="hljs-operator">=</span><span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+<p>接下来，在通知观察者（notification observer）中，我们需要在激活按钮状态前检查“登录”文本框的内容。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">- (<span class="hljs-keyword">void</span>)alertTextFieldDidChange:(<span class="hljs-built_in">NSNotification</span> *)notification&#123;<br>  <span class="hljs-built_in">UIAlertController</span> *alertController =<br>    (<span class="hljs-built_in">UIAlertController</span> *)<span class="hljs-keyword">self</span>.presentedViewController;<br>  <span class="hljs-keyword">if</span>(alertController) &#123;<br>    <span class="hljs-built_in">UITextField</span> *login = alertController.textFields.firstObject;<br>    <span class="hljs-built_in">UIAlertAction</span> *okAction = alertController.actions.lastObject;<br>    okAction.enabled = login.text.length &gt; <span class="hljs-number">2</span>;<br>&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">alertTextFieldDidChange</span>(<span class="hljs-params">notification</span>: <span class="hljs-type">NSNotification</span>)</span>&#123;<br>  <span class="hljs-keyword">var</span> alertController <span class="hljs-operator">=</span> <span class="hljs-keyword">self</span>.presentedViewController <span class="hljs-keyword">as</span> <span class="hljs-type">UIAlertController</span>?<br>  <span class="hljs-keyword">if</span>(alertController <span class="hljs-operator">!=</span> <span class="hljs-literal">nil</span>) &#123;<br>    <span class="hljs-keyword">var</span> login <span class="hljs-operator">=</span> alertController<span class="hljs-operator">!</span>.textFields<span class="hljs-operator">?</span>.first <span class="hljs-keyword">as</span> <span class="hljs-type">UITextField</span><br>    <span class="hljs-keyword">var</span> okAction <span class="hljs-operator">=</span> alertController<span class="hljs-operator">!</span>.actions.last <span class="hljs-keyword">as</span> <span class="hljs-type">UIAlertAction</span><br>    okAction.enabled <span class="hljs-operator">=</span> countElements(login.text) <span class="hljs-operator">&gt;</span> <span class="hljs-number">2</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-c4bb0a2ff79226f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="登录和密码对话框示例"></p>
+<p>好了，现在对话框的“好的”按钮被冻结了，输入3个以上的字符“登录”文本框才能点击“好的”。</p>
+<h4 id="上拉菜单"><a href="#上拉菜单" class="headerlink" title="上拉菜单"></a>上拉菜单</h4><p>当需要给用户展示一系列选择的时候（选择恐惧症患者杀手），上拉菜单就能够派上大用场了。和对话框不同，上拉菜单的展示形式和设备大小有关。在iPhone上（紧缩宽度），上拉菜单从屏幕底部升起。在iPad上（常规宽度），上拉菜单以弹出框的形式展现。<br>创建上拉菜单的方式和创建对话框的方式非常类似，唯一的区别是它们的形式。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertController</span> *alertController = [<span class="hljs-built_in">UIAlertController</span> alertControllerWithTitle:<br>  <span class="hljs-string">@&quot;保存或删除数据&quot;</span>message:<span class="hljs-string">@&quot;删除数据将不可恢复&quot;</span><br>  preferredStyle: <span class="hljs-built_in">UIAlertControllerStyleActionSheet</span>];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs swift">varalertController <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertController</span>(title:<span class="hljs-string">&quot;保存或删除数据&quot;</span>,<br>  message:<span class="hljs-string">&quot;删除数据将不可恢复&quot;</span>,<br>  preferredStyle: <span class="hljs-type">UIAlertControllerStyle</span>.<span class="hljs-type">ActionSheet</span>)<br></code></pre></td></tr></table></figure>
+<p>添加按钮动作的方式和对话框相同。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertAction</span> *cancelAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<span class="hljs-string">@&quot;取消&quot;</span><br>  style:<span class="hljs-built_in">UIAlertActionStyleCancel</span> handler:<span class="hljs-literal">nil</span>];<br><span class="hljs-built_in">UIAlertAction</span> *deleteAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<span class="hljs-string">@&quot;删除&quot;</span><br>  style:<span class="hljs-built_in">UIAlertActionStyleDestructive</span> handler:<span class="hljs-literal">nil</span>];<br><span class="hljs-built_in">UIAlertAction</span> *archiveAction = [<span class="hljs-built_in">UIAlertAction</span> actionWithTitle:<span class="hljs-string">@&quot;保存&quot;</span><br>  style:<span class="hljs-built_in">UIAlertActionStyleDefault</span> handler:<span class="hljs-literal">nil</span>];<br><br>[alertController addAction:cancelAction];<br>[alertController addAction:deleteAction];<br>[alertController addAction:archiveAction];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs swift">varcancelAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;取消&quot;</span>,<br>  style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Cancel</span>, handler: <span class="hljs-literal">nil</span>)<br>vardeleteAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;删除&quot;</span>,<br>  style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Destructive</span>, handler: <span class="hljs-literal">nil</span>)<br>vararchiveAction <span class="hljs-operator">=</span> <span class="hljs-type">UIAlertAction</span>(title:<span class="hljs-string">&quot;保存&quot;</span>,<br>  style: <span class="hljs-type">UIAlertActionStyle</span>.<span class="hljs-type">Default</span>, handler: <span class="hljs-literal">nil</span>)<br><br>alertController.addAction(cancelAction)<br>alertController.addAction(deleteAction)<br>alertController.addAction(archiveAction)<br></code></pre></td></tr></table></figure>
+<p>您不能在上拉菜单中添加文本框，如果您强行作死添加了文本框，那么就会荣幸地得到一个运行时异常：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">*Terminating app due to uncaught exception<br>‘<span class="hljs-built_in">NSInternalInconsistencyException</span>’, reason: ‘Text fields can only be<br>added to an alert controller of style <span class="hljs-built_in">UIAlertControllerStyleAlert</span>’<br></code></pre></td></tr></table></figure>
+<p>同样，简单的异常说明，我们也不多说了。<br>接下来我们就可以在iPhone或者其他紧缩宽度的设备上展示了，不出我们所料，运行得很成功。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">[<span class="hljs-keyword">self</span> presentViewController:alertController animated:<span class="hljs-literal">YES</span> completion:<span class="hljs-literal">nil</span>];<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">self</span>.presentViewController(alertController, animated:<span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-8bcf868c43cecbd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="上拉菜单效果"></p>
+<p>如果上拉菜单中有“取消”按钮的话，那么它永远都会出现在菜单的底部，不管添加的次序是如何（就是这么任性）。其他的按钮将会按照添加的次序从上往下依次显示。《iOS 用户界面指南》要求所有的“毁坏”样式按钮都必须排名第一（红榜嘛，很好理解的，对不对？）。<br>别激动得太早，我们现在还有一个很严重的问题，这个问题隐藏得比较深。当我们使用iPad或其他常规宽度的设备时，就会得到一个运行时异常：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">Terminating app due to uncaught exception ‘<span class="hljs-built_in">NSGenericException</span>’, reason:<br>‘<span class="hljs-built_in">UIPopoverPresentationController</span><br>(&lt;_uialertcontrolleractionsheetregularpresentationcontroller:<br><span class="hljs-number">0x7fc619588110</span>=<span class="hljs-string">&quot;&quot;</span>&gt;) should have a non-<span class="hljs-literal">nil</span> sourceView or barButtonItem<br>set before the presentation occurs.’<br></code></pre></td></tr></table></figure>
+<p>就如我们之前所说，在常规宽度的设备上，上拉菜单是以弹出框的形式展现。弹出框必须要有一个能够作为源视图或者栏按钮项目的描点(anchor point)。由于在本例中我们是使用了常规的UIButton来触发上拉菜单的，因此我们就将其作为描点。<br>在iOS 8中我们不再需要小心翼翼地计算出弹出框的大小，UIAlertController将会根据设备大小自适应弹出框的大小。并且在iPhone或者紧缩宽度的设备中它将会返回nil值。配置该弹出框的代码如下：<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIPopoverPresentationController</span> *popover =<br>  alertController.popoverPresentationController;<br><span class="hljs-keyword">if</span>(popover)&#123;<br>  popover.sourceView = sender;<br>  popover.sourceRect = sender.bounds;<br>  popover.permittedArrowDirections = <span class="hljs-built_in">UIPopoverArrowDirectionAny</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-keyword">var</span> popover <span class="hljs-operator">=</span> alertController.popoverPresentationController<br><span class="hljs-keyword">if</span>(popover <span class="hljs-operator">!=</span> <span class="hljs-literal">nil</span>)&#123;<br>  popover<span class="hljs-operator">?</span>.sourceView <span class="hljs-operator">=</span> sender<br>  popover<span class="hljs-operator">?</span>.sourceRect <span class="hljs-operator">=</span> sender.bounds<br>  popover<span class="hljs-operator">?</span>.permittedArrowDirections <span class="hljs-operator">=</span> <span class="hljs-type">UIPopoverArrowDirection</span>.<span class="hljs-keyword">Any</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-fccfd786fe461f0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="上拉菜单效果"></p>
+<p>UIPopoverPresentationController类同样也是在iOS 8中新出现的类，用来替换UIPopoverController的。这个时候上拉菜单是以一个固定在源按钮上的弹出框的形式显示的。<br>要注意UIAlertController在使用弹出框的时候自动移除了取消按钮。用户通过点击弹出框的外围部分来实现取消操作，因此取消按钮便不再必需。</p>
+<h4 id="释放对话框控制器"><a href="#释放对话框控制器" class="headerlink" title="释放对话框控制器"></a>释放对话框控制器</h4><p>通常情况下，当用户选中一个动作后对话框控制器将会自行释放。不过您仍然可以在需要的时候以编程方式释放它，就像释放其他视图控制器一样。您应当在应用程序转至后台运行时移除对话框或者上拉菜单。假定我们正在监听UIApplicationDidEnterBackgroundNotification通知消息，我们可以在observer中释放任何显示出来的视图控制器。（参考在viewDidLoad方法中设立observer的示例代码）。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">- (<span class="hljs-keyword">void</span>)didEnterBackground:(<span class="hljs-built_in">NSNotification</span> *)notification &#123;<br>  [[<span class="hljs-built_in">NSNotificationCenter</span> defaultCenter] removeObserver:<span class="hljs-keyword">self</span><br>name:<span class="hljs-built_in">UITextFieldTextDidChangeNotification</span> object:<span class="hljs-literal">nil</span>];<br>  [<span class="hljs-keyword">self</span>.presentedViewController dismissViewControllerAnimated:<span class="hljs-literal">NO</span><br>completion:<span class="hljs-literal">nil</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>swift版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">didEnterackground</span>(<span class="hljs-params">notification</span>: <span class="hljs-type">NSNotification</span>)</span>&#123;<br>  <span class="hljs-type">NSNotificationCenter</span>.defaultCenter().removeObserver(<span class="hljs-keyword">self</span>,<br>name: <span class="hljs-type">UITextFieldTextDidChangeNotification</span>, object: <span class="hljs-literal">nil</span>)<br>  <span class="hljs-keyword">self</span>.presentedViewController<span class="hljs-operator">?</span>.dismissViewControllerAnimated(<span class="hljs-literal">false</span>,<br>completion: <span class="hljs-literal">nil</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意，要保证运行安全我们同样要确保移除所有的文本框observer。</p>
+<hr>
+<p>附上以前我们使用UIAlertView实现的一些功能：</p>
+<h4 id="UIAlertView"><a href="#UIAlertView" class="headerlink" title="UIAlertView"></a>UIAlertView</h4><p>初始化和显示一个带有“取消”和“好的”按钮的对话框视图。<br>Objective-C版本：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIAlertView</span> *alertview = [[<span class="hljs-built_in">UIAlertView</span> alloc] initWithTitle:<span class="hljs-string">@&quot;标题&quot;</span><br>  message:<span class="hljs-string">@&quot;这个是UIAlertView的默认样式&quot;</span>delegate:<span class="hljs-keyword">self</span> cancelButtonTitle:<span class="hljs-string">@&quot;取消&quot;</span><br>  otherButtonTitles:<span class="hljs-string">@&quot;好的&quot;</span>, <span class="hljs-literal">nil</span>];<br>[alertview show];<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-fb35d164ecb61b00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="UIAlertView的默认样式"></p>
+<p>swift版本和Objective-C版本不同，在swift中，alertView的初始化只允许创建拥有一个取消按钮的对话框视图。或许您可以看到带有otherButtonTitles的init方法，但是很遗憾，这个方法是没有办法通过编译的。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">var alertView = <span class="hljs-built_in">UIAlertView</span>(title:<span class="hljs-string">&quot;标题&quot;</span>, message:<span class="hljs-string">&quot;这个是UIAlertView的默认样式&quot;</span>,<br>  delegate: <span class="hljs-keyword">self</span>, cancelButtonTitle:<span class="hljs-string">&quot;取消&quot;</span>)<br>alertView.show()<br></code></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-e99696d6eff26b13.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="swift版本的UIAlertView"></p>
+<p>要能够创建和上面Objective-C版本相同的对话框视图，我们可以采取曲线救国的方法，虽然麻烦了些，但是我们为了目的可以不择手段的，是吧？</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">varalertView = <span class="hljs-built_in">UIAlertView</span>()<br>alertView.delegate = <span class="hljs-keyword">self</span><br>alertView.title =<span class="hljs-string">&quot;标题&quot;</span><br>alertView.message =<span class="hljs-string">&quot;这个是UIAlertView的默认样式&quot;</span><br>alertView.addButtonWithTitle(<span class="hljs-string">&quot;取消&quot;</span>)<br>alertView.addButtonWithTitle(<span class="hljs-string">&quot;好的&quot;</span>)<br>alertView.show()<br></code></pre></td></tr></table></figure>
+<p>您也可以通过更改UIAlertView的alertViewStyle属性来实现输入文字、密码甚至登录框的效果。<br><img src="http://upload-images.jianshu.io/upload_images/2887980-9d548203db643571.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="UIAlertView文本对话框"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-337326628931dcec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="UIAlertView密码对话框"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2887980-6b87cd485f29312f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" srcset="/img/loading.gif" lazyload alt="UIAlertView登录对话框"></p>
+<p>UIAlertViewDelegate协议拥有响应对话框视图的按钮动作的回调方法。还有当文本框内容改变时，调用alertViewShouldEnableOtherButton:方法可以让按钮动态地可用或者不可用。<br>以上UIAlertView仅供参考，不建议加以使用。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#57;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#x6d;">&#95;&#x31;&#57;&#57;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
+<li><a href="https://adrenine.github.io/">Blog - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Adrenine">Github - Adrenine</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/iOS%E7%AC%94%E8%AE%B0/">iOS笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/iOS%E7%AC%94%E8%AE%B0/">iOS笔记</a>
+                    
+                      <a class="hover-with-bg" href="/tags/UIAlertController/">UIAlertController</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/11/19/%E3%80%90iOS%E7%AC%94%E8%AE%B0-5%E3%80%91UILabel%E5%AF%8C%E6%96%87%E6%9C%AC%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UILabel富文本的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/11/13/%E3%80%90iOS%E7%AC%94%E8%AE%B0-3%E3%80%91Runtime%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89/">
+                        <span class="hidden-mobile">Runtime基础（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MTc4Ni8xODMzMg==">
+    <script type="text/javascript">
+      Fluid.utils.lazyComments('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="【主页】系列文章目录【LeetCode】系列目录
+LeetCode系列Q：There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log">
+  <meta name="author" content="XieBangyao">
+  <meta name="keywords" content="">
+  
+  <title>【LeetCode \#4】Midian of Two Sorted Arrays - XieBangyao&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"adrenine.github.io","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>[object Object]</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【LeetCode \#4】Midian of Two Sorted Arrays">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2019-12-06 17:51" pubdate>
+        2019年12月6日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      57
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【LeetCode \#4】Midian of Two Sorted Arrays</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月17日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【LeetCode】系列目录"><a href="#【LeetCode】系列目录" class="headerlink" title="【LeetCode】系列目录"></a><a href="https://adrenine.github.io/post/d305db71.html">【LeetCode】系列目录</a></h3><hr>
+<h3 id="LeetCode系列"><a href="#LeetCode系列" class="headerlink" title="LeetCode系列"></a><a href="https://adrenine.github.io/post/10fb75fe.html">LeetCode系列</a></h3><h4 id="Q：There-are-two-sorted-arrays-nums1-and-nums2-of-size-m-and-n-respectively-Find-the-median-of-the-two-sorted-arrays-The-overall-run-time-complexity-should-be-O-log-m-n"><a href="#Q：There-are-two-sorted-arrays-nums1-and-nums2-of-size-m-and-n-respectively-Find-the-median-of-the-two-sorted-arrays-The-overall-run-time-complexity-should-be-O-log-m-n" class="headerlink" title="Q：There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n))."></a>Q：There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</h4><p>You may assume nums1 and nums2 cannot be both empty.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c">Example <span class="hljs-number">1</span>:<br><br>nums1 = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>]<br>nums2 = [<span class="hljs-number">2</span>]<br><br>The median is <span class="hljs-number">2.0</span><br>Example <span class="hljs-number">2</span>:<br><br>nums1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br>nums2 = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]<br><br>The median is (<span class="hljs-number">2</span> + <span class="hljs-number">3</span>)/<span class="hljs-number">2</span> = <span class="hljs-number">2.5</span><br></code></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<hr>
+<h4 id="E：这里有一个长度为m的有序数组nums1和长度为n的有序数组nums2。找到这两个有序数组的中位数，并且让时间复杂度为O-log-m-n-。"><a href="#E：这里有一个长度为m的有序数组nums1和长度为n的有序数组nums2。找到这两个有序数组的中位数，并且让时间复杂度为O-log-m-n-。" class="headerlink" title="E：这里有一个长度为m的有序数组nums1和长度为n的有序数组nums2。找到这两个有序数组的中位数，并且让时间复杂度为O(log(m+n))。"></a>E：这里有一个长度为m的有序数组nums1和长度为n的有序数组nums2。找到这两个有序数组的中位数，并且让时间复杂度为O(log(m+n))。</h4><p>你可以假设两个数组不可能同时为空。</p>
+<h5 id="e-g"><a href="#e-g" class="headerlink" title="e.g."></a>e.g.</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c">Example <span class="hljs-number">1</span>:<br><br>nums1 = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>]<br>nums2 = [<span class="hljs-number">2</span>]<br><br>The median is <span class="hljs-number">2.0</span><br>Example <span class="hljs-number">2</span>:<br><br>nums1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br>nums2 = [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]<br><br>The median is (<span class="hljs-number">2</span> + <span class="hljs-number">3</span>)/<span class="hljs-number">2</span> = <span class="hljs-number">2.5</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h4 id="A"><a href="#A" class="headerlink" title="A:"></a>A:</h4><h5 id="Approach-1："><a href="#Approach-1：" class="headerlink" title="Approach 1："></a>Approach 1：</h5><p>先不考虑时间复杂度，既然两个数组都是有序数组，那我们不就可以把两个数组合起来，然后取中位数吗，两个有序数组合并，其实就是归并排序的一个部分。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMedianSortedArrays</span>(<span class="hljs-keyword">_</span> <span class="hljs-params">nums1</span> : [<span class="hljs-type">Int</span>], <span class="hljs-keyword">_</span> <span class="hljs-params">nums2</span> : [<span class="hljs-type">Int</span>])</span> -&gt; <span class="hljs-type">Double</span> &#123;<br>        <br>        <span class="hljs-keyword">let</span> m <span class="hljs-operator">=</span> nums1.count<br>        <span class="hljs-keyword">let</span> n <span class="hljs-operator">=</span> nums2.count<br>        <br>        <span class="hljs-keyword">var</span> nums <span class="hljs-operator">=</span> [<span class="hljs-type">Int</span>]()<br>        <br>        <span class="hljs-keyword">if</span> m <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;	<span class="hljs-comment">//num1为空数组</span><br>            <span class="hljs-keyword">if</span> n <span class="hljs-operator">%</span> <span class="hljs-number">2</span> <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;	<span class="hljs-comment">//num元素为偶数个</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums2[n<span class="hljs-operator">/</span><span class="hljs-number">2</span> <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] <span class="hljs-operator">+</span> nums2[n<span class="hljs-operator">/</span><span class="hljs-number">2</span>]) <span class="hljs-operator">/</span> <span class="hljs-number">2.0</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums2[n<span class="hljs-operator">/</span><span class="hljs-number">2</span>])<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> n <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;	<span class="hljs-comment">//num2为空数组</span><br>            <span class="hljs-keyword">if</span> m <span class="hljs-operator">%</span> <span class="hljs-number">2</span> <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums1[m<span class="hljs-operator">/</span><span class="hljs-number">2</span> <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] <span class="hljs-operator">+</span> nums1[m<span class="hljs-operator">/</span><span class="hljs-number">2</span>]) <span class="hljs-operator">/</span> <span class="hljs-number">2.0</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums1[m<span class="hljs-operator">/</span><span class="hljs-number">2</span>])<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">var</span> count : <span class="hljs-type">Int</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>        <span class="hljs-keyword">var</span> i : <span class="hljs-type">Int</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>        <span class="hljs-keyword">var</span> j : <span class="hljs-type">Int</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> count <span class="hljs-operator">&lt;</span> (m <span class="hljs-operator">+</span> n) &#123;	<br>            <span class="hljs-keyword">if</span> i <span class="hljs-operator">==</span> m &#123;	<span class="hljs-comment">//num1遍历完毕</span><br>                <span class="hljs-keyword">while</span> j <span class="hljs-operator">!=</span> n &#123; 	<span class="hljs-comment">//num2未遍历完毕</span><br>                    nums.append(nums2[j])<br>                    count <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>                    j <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>                &#125;<br>                <span class="hljs-keyword">break</span><br>            &#125;<br>            <br>            <span class="hljs-keyword">if</span> j <span class="hljs-operator">==</span> n &#123; <span class="hljs-comment">//num2遍历完毕</span><br>                <span class="hljs-keyword">while</span> i <span class="hljs-operator">!=</span> m &#123;	<span class="hljs-comment">//num1未遍历完毕</span><br>                    nums.append(nums1[i])<br>                    count <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>                    i <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>                &#125;<br>                <span class="hljs-keyword">break</span><br>            &#125;<br>            <br>            <span class="hljs-keyword">if</span> nums1[i] <span class="hljs-operator">&lt;</span> nums2[j] &#123;<br>                nums.append(nums1[i])<br>                count <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>                i <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                nums.append(nums2[j])<br>                count <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>                j <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span> count <span class="hljs-operator">%</span> <span class="hljs-number">2</span> <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums[count<span class="hljs-operator">/</span><span class="hljs-number">2</span> <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] <span class="hljs-operator">+</span> nums[count<span class="hljs-operator">/</span><span class="hljs-number">2</span>]) <span class="hljs-operator">/</span> <span class="hljs-number">2.0</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums[count<span class="hljs-operator">/</span><span class="hljs-number">2</span>])<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis："><a href="#Complexity-Analysis：" class="headerlink" title="Complexity Analysis："></a>Complexity Analysis：</h5><ul>
+<li>时间复杂度： O(m+n)。两个数组每个元素都要遍历一遍（m+n）</li>
+<li>空间复杂度：O(m+n)。临时数组大小为（m+n）</li>
+</ul>
+<hr>
+<h5 id="Approach-2："><a href="#Approach-2：" class="headerlink" title="Approach 2："></a>Approach 2：</h5><p>方法二是基于方法一的改进，从时间和空间上分别考虑并改进。</p>
+<p>时间上，我们要找的是中位数，根据中位数的定义，我们没有必要将nums1和nums2两个数组整个遍历一遍，只要遍历两个数组长度总和一般的位置就可以结束，遍历次数可以少一半，但是时间复杂度还是和方法一一样。</p>
+<p>空间上，我们需要找中位数，那对于两个数组总和为奇数时，我们需要获取<code>（m+n+1）/ 2</code>的那个元素，对于两个数组为偶数时，我们需要获取最后一次遍历的那个元素<code>（m+n）/ 2 +1</code>和他前面那个元素<code>（m+n）/ 2</code>。所以看看算法空间复杂度能不能保持在常量级。</p>
+<p>首先明确一下遍历次数，假设<code>m+n = len</code>，对于两个数组和为奇数的时候，我们需要获取序号为<code>（len+1）/2</code>的元素，我们需要遍历<code>len / 2+1</code>次(Int计算，会抹去小数部分)；对于两个数组和为偶数的时候，我们需要获取<code>len / 2</code>的元素和<code>len / 2 +1</code>的两个元素，所以遍历次数也是<code>len / 2 + 1</code>次。所以不管是奇数还是偶数，我们的遍历次数都是<code>（m+n）/ 2 + 1</code>次。</p>
+<p>算法实现：<br>既然我们不需要保存两个数组的所有元素，而是最多保存两个元素，那我们用两个变量currentNum和preNum来分别表示当前位置的数字和前一个数字，每次循环，将最新的结果赋值给currentNum，将currentNum赋值给preNum。<br>循环遍历思路还是和方法一一样，但是遍历次数变成len/2 + 1，不用完整遍历。用aIndex和bIndex分别表示num1和num2遍历的当前位置，进行比较，将最新的结果赋值给currentNum，将currentNum赋值给preNum。</p>
+<p>考虑所有可能的情况包括某个数组已经没有元素：<br>若num1已经没有元素了，那可以继续遍历num2的元素，更新currentNum和preNum；即<code>aIndex≥m</code>则<code>bIndex++</code>;<br>当num1还有元素，num2没有元素，继续遍历num1的元素，更新currentNum和preNum；即<code>bIndex≥n</code> 则<code>aIndex++</code>;<br>当num1还有元素，num2也还有元素，则需要做<code>num1[aIndex]</code>和<code>num2[bIndex]</code>的比较。即<code>aIndex&lt;m</code> 且 <code>bIndex&lt;n</code>比较<code>num1[aIndex]</code>和<code>num2[bIndex]</code>的大小。</p>
+<p>所以总结遍历条件就是：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">aIndex&lt;bIndex &amp;&amp; (bIndex&gt;=n || num1[aIndex]&lt;num2[bIndex])<br></code></pre></td></tr></table></figure>
+<p>完整代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMedianSortedArrays</span>(<span class="hljs-keyword">_</span> <span class="hljs-params">nums1</span>: [<span class="hljs-type">Int</span>], <span class="hljs-keyword">_</span> <span class="hljs-params">nums2</span>: [<span class="hljs-type">Int</span>])</span> -&gt; <span class="hljs-type">Double</span> &#123;<br>    <br>        <span class="hljs-keyword">var</span> currentNum <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, preNum <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, aIndex <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, bIndex <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>        <span class="hljs-keyword">let</span> m <span class="hljs-operator">=</span> nums1.count, n <span class="hljs-operator">=</span> nums2.count, len <span class="hljs-operator">=</span> m <span class="hljs-operator">+</span> n<br>        <span class="hljs-keyword">for</span> <span class="hljs-keyword">_</span> <span class="hljs-keyword">in</span> <span class="hljs-number">0</span><span class="hljs-operator">...</span>len<span class="hljs-operator">/</span><span class="hljs-number">2</span> &#123;<br>            preNum <span class="hljs-operator">=</span> currentNum<br>            <span class="hljs-keyword">if</span> aIndex <span class="hljs-operator">&lt;</span> m <span class="hljs-operator">&amp;&amp;</span> (bIndex <span class="hljs-operator">&gt;=</span> n <span class="hljs-operator">||</span> nums1[aIndex] <span class="hljs-operator">&lt;</span> nums2[bIndex]) &#123;<br>                currentNum <span class="hljs-operator">=</span> nums1[aIndex]<br>                aIndex <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>            &#125;  <span class="hljs-keyword">else</span> &#123;<br>                currentNum <span class="hljs-operator">=</span> nums2[bIndex]<br>                bIndex <span class="hljs-operator">+=</span> <span class="hljs-number">1</span><br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-keyword">if</span> len <span class="hljs-operator">&amp;</span> <span class="hljs-number">1</span> <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(preNum <span class="hljs-operator">+</span> currentNum) <span class="hljs-operator">/</span> <span class="hljs-number">2.0</span><br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span>  <span class="hljs-type">Double</span>(currentNum)<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis：-1"><a href="#Complexity-Analysis：-1" class="headerlink" title="Complexity Analysis："></a>Complexity Analysis：</h5><ul>
+<li>时间复杂度： O(m+n)。两个数组总元素个数的一半（m+n）/ 2</li>
+<li>空间复杂度：O(1)。共申请了7个临时变量，所以是常量级</li>
+</ul>
+<hr>
+<h5 id="Approach-3："><a href="#Approach-3：" class="headerlink" title="Approach 3："></a>Approach 3：</h5><p>以上两个方式都不能达到时间复杂度为O(log(m+n))，时间复杂度都是O(m+n)，要让时间复杂度为O(log(m+n))，那我们可以想到二分法，前面两个方法循环方式是一个一个遍历，一个一个排除，那我们可不可以批量排除，跳跃遍历呢，当然是可以的。假设我们现在要找第k小的数字，我们可以每次循环排除掉k / 2个数。</p>
+<p>假设我们现在要找第7小的数字，num1和num2如下图：<br><img src="https://img-blog.csdnimg.cn/20181204162521246.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="k = 7"><br>我们比较两个数组的第k / 2个数字，如果k是奇数，向下取整，也就是比较第三个数字，上边数组中的4和下边数组中的3，如果哪个数字小，就表明该数组的前k / 2个数字都不可能是第k小的数字，可以排除掉，也就是说num2的[1，2，3]三个元素都不能是第7小的数字，我们可以把他们排除掉。将[1，3，4，9]和[4，5，6，7，8，9，10]组成两个新的数组，重新进行比较，如下图，其中橙色为已经去掉的数字。</p>
+<p>我们现在可以总结一下：<br>数组A[1]，A[2]，A[3]，A[4]……A[k / 2]……A[m]，其中2k不一定等于m<br>数组B[1]，B[2]，B[3]，B[4]……B[k / 2]……B[n]，其中2k不一定等于n<br>假设A[k / 2] &lt; B[k / 2]，那么我们可以得出：<br>A[1]，A[2]，A[3]，A[4]……A[k / 2]都不可能是第k小的数。</p>
+<p>而A数组中，比A[k / 2]小的数有(k / 2 - 1)个，B数组中，比B[k / 2]小的数有(k / 2 - 1)个，而A[k / 2] &lt; B[k / 2]，那么比B[k / 2]小的数有（k / 2 - 1 + k / 2 - 1 + 1）= (k - 1)个，那么B[k / 2]有可能是第k小的数，但是也有可能A数组中还有比B[k / 2]小的数。<br><img src="https://img-blog.csdnimg.cn/20181204162140471.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="k = 4"><br>上图中橙色为第一次比较就排除了的数字。现在进行第二轮比较，一开始k = 7，而我们已经排除了3个数字，所以这次 k = 4, k / 2 = 2，进行第二轮比较，因为3小于5，所以我们可以剔除num1中的[1，3]两个元素，得到结果如下图：<br><img src="https://img-blog.csdnimg.cn/20181204162218920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="k = 2"><br>第一次我们排除了3个数字，第二次我们排除了2个数字，所以我们剩下需要找到最小的7 - 3 - 2 = 2个数字，即k = 2。现在当前查找的数字都为4，我们可以假设4≥4 也可以假设4 ≤ 4，因为我们总要排除一个4而保留一个4，所以对结果没有影响，下图是假设4 ≥ 4的结果，排除掉num2中的[4]，结果如下图：<br><img src="https://img-blog.csdnimg.cn/20181204162227346.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="k = 1"><br>此时我们已经排除了3 + 2 + 1 = 6个数字，所以剩下7 - 3 - 2 - 1 = 1，即k = 1。那我们只需要获取两个数组剩下元素中的第一次数字再进行一次比较，就可以获取到我们所要的结果。因为4&lt;5，所以第7小的数字为4。</p>
+<hr>
+<p>我们每次都是去k / 2的数进行比较，有时候可能会遇到数组长度小于k / 2的时候，如下图：<br><img src="https://img-blog.csdnimg.cn/20181204162235339.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="k = 7"><br>由于k / 2 = 3大于num1的长度2，所以我们将箭头指向num1的末尾进行比较，如果num1[m - 1]小于num2[k / 2]，那么直接排除掉num1数组，剩下就不用比较了，直接取num2[k - m ]即为第k小的数字，如下图：<br><img src="https://img-blog.csdnimg.cn/2018120416224557.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="k = 5"><br>在第一次比较中k = 7 ，k / 2 = 3，且num[1] = 2 &lt; num[2] = 3，所以直接排除掉整个num1数组[1，2]，剩下k = k - m = 7 - 2 = 5，即取num2[5-1]则为第k小的数字。</p>
+<p>在上面的示例中，不论k为奇数还是偶数，对于算法都没有影响，而且，在找k的过程中，k的值都有可能奇数变偶数，偶数变奇数，最终当k=1或者某个数组为空时，停止遍历。</p>
+<p>这里采用递归的思路，为了防止数组长度小于k / 2，所以每次比较<code>min(k /  2 , len(数组))</code>，把长度小于k / 2的那个数组排除掉。其他情况，将两数组进行递归并更新k的值直到k=1或者数组长度小于k/2。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br><br>    <br>    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMedianSortedArrays</span>(<span class="hljs-keyword">_</span> <span class="hljs-params">nums1</span>: [<span class="hljs-type">Int</span>], <span class="hljs-keyword">_</span> <span class="hljs-params">nums2</span>: [<span class="hljs-type">Int</span>])</span> -&gt; <span class="hljs-type">Double</span> &#123;<br>        <span class="hljs-keyword">let</span> m <span class="hljs-operator">=</span> nums1.count, n <span class="hljs-operator">=</span> nums2.count<br>        <span class="hljs-comment">//若m+n为偶数，则计算两个k值，（m+n）/ 2以及（m+n）/ 2 +1，若m+n为奇数，则计算一个k值（m+n+1）/ 2，为统一计算，不管是奇数还是偶数，我们都计算两个k，为奇数时，计算的是相同的两个k，偶数时，计算（m+n）/ 2和（m+n）/ 2 +1，而Int计算，（m+n）/ 2 == (m+n+1) / 2，所以综合起来有下面的结果。</span><br>        <span class="hljs-keyword">return</span> (findKth(nums1,nums2, (m<span class="hljs-operator">+</span>n<span class="hljs-operator">+</span><span class="hljs-number">1</span>)<span class="hljs-operator">/</span><span class="hljs-number">2</span>) <span class="hljs-operator">+</span> findKth(nums1, nums2, (m<span class="hljs-operator">+</span>n<span class="hljs-operator">+</span><span class="hljs-number">2</span>)<span class="hljs-operator">/</span><span class="hljs-number">2</span>)) <span class="hljs-operator">*</span> <span class="hljs-number">0.5</span><br>        <br>    &#125;<br>    <br>    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findKth</span>(<span class="hljs-keyword">_</span> <span class="hljs-params">nums1</span> : [<span class="hljs-type">Int</span>], <span class="hljs-keyword">_</span> <span class="hljs-params">nums2</span> : [<span class="hljs-type">Int</span>], <span class="hljs-keyword">_</span> <span class="hljs-params">k</span> : <span class="hljs-type">Int</span>)</span> -&gt; <span class="hljs-type">Double</span> &#123;<br>        <span class="hljs-keyword">let</span> m <span class="hljs-operator">=</span> nums1.count, n <span class="hljs-operator">=</span> nums2.count<br>        <br>        <span class="hljs-keyword">guard</span> m <span class="hljs-operator">&lt;=</span> n <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> findKth(nums2, nums1, k)<br>        &#125;<br>        <br>        <span class="hljs-keyword">guard</span> m <span class="hljs-operator">!=</span> <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(nums2[k <span class="hljs-operator">-</span> <span class="hljs-number">1</span>])<br>        &#125;<br>        <span class="hljs-keyword">guard</span> k <span class="hljs-operator">!=</span> <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(<span class="hljs-built_in">min</span>(nums1[<span class="hljs-number">0</span>], nums2[<span class="hljs-number">0</span>]))<br>        &#125;<br>        <br>        <span class="hljs-keyword">let</span> i <span class="hljs-operator">=</span> <span class="hljs-built_in">min</span>(k <span class="hljs-operator">/</span> <span class="hljs-number">2</span>, m)<br>        <span class="hljs-keyword">let</span> j <span class="hljs-operator">=</span> <span class="hljs-built_in">min</span>(k <span class="hljs-operator">/</span> <span class="hljs-number">2</span>, m)<br>        <br>        <span class="hljs-keyword">if</span> nums1[i <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] <span class="hljs-operator">&lt;</span> nums2[j <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] &#123;<br>            <span class="hljs-keyword">return</span> findKth(<span class="hljs-type">Array</span>(nums1[i<span class="hljs-operator">..&lt;</span>m]),nums2, k <span class="hljs-operator">-</span> i)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">return</span> findKth(nums1, <span class="hljs-type">Array</span>(nums2[j<span class="hljs-operator">..&lt;</span>n]), k <span class="hljs-operator">-</span> j)<br>        &#125;<br>        <br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis：-2"><a href="#Complexity-Analysis：-2" class="headerlink" title="Complexity Analysis："></a>Complexity Analysis：</h5><ul>
+<li>时间复杂度： O(log(m+n))。每进行一次循环，我们就减少 k / 2 个元素，所以时间复杂度是 O（log（k）），而<code> k = （m + n）/ 2</code> ，所以最终的复杂也就是 O（log（m + n））。</li>
+<li>空间复杂度：O(1)。虽然我们用到了递归，但是可以看到这个递归属于尾递归，所以编译器不需要不停地堆栈，所以空间复杂度为 O（1）。</li>
+</ul>
+<hr>
+<h5 id="Approach-4："><a href="#Approach-4：" class="headerlink" title="Approach 4："></a>Approach 4：</h5><p>首先看看中位数的定义：<br>中位数（又称中值，英语：Median），统计学中的专有名词，代表一个样本、种群或概率分布中的一个数值，其可将数值集合划分为相等的上下两部分。<br>对于有限的数集，可以通过把所有观察值高低排序后找出正中间的一个作为中位数。如果观察值有偶数个，通常取最中间的两个数值的平均数作为中位数。 （from： 百度百科）</p>
+<p>我们将数组进行划分，假设数组长度为m，如下图，我们有0到m共m+1个位置可以进行切割。<br><img src="https://img-blog.csdnimg.cn/20181205142131104.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>现在我们分别使用i和j对A，B两个数组进行分割，将A，B两个数组左边的分割结果组合成左半部分（绿色），将右边分割结果组合成右半部分（黄色）。</p>
+<p>当A数组和B数组的总长度为偶数时，我们能够得到下图所示的两部分。</p>
+<p>若我们能够保证：</p>
+<ul>
+<li>左半部分长度等于右半部分长度：</br><br>  <code>i + j = m - i + n - j </code><br>  即：<br>   <code>j = (m + n) / 2 - i</code></li>
+<li>左半部分最大值小于等于右半部分最小值：</br><br>  <code>max( A [ i - 1 ] , B [ j - 1 ] )  ≤ min ( A [ i ] ， B [ j ] )</code></li>
+</ul>
+<p>那么，中位数就可以表示为如下：</br><br><code>（左半部分最大值+右半部分最小值）* 0.5</code><br>即：<br><code>（max ( A [ i - 1 ] , B [ j - 1 ] )  + min ( A [ i ]，B [ j ] ) ) * 0.5</code><br><img src="https://img-blog.csdnimg.cn/20181205142927726.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="偶数"><br>当A数组和B数组的总长度为奇数时（假设分割使B数组左边多出一个元素），我们能够得到下图所示的两部分。</p>
+<p>若我们能够保证：</p>
+<ul>
+<li>左半部分长度比右半部分长度大1：</br><br>  <code>i + j = m - i + n - j + 1 </code><br>  即：<br>   <code>j = (m + n + 1) / 2 - i</code></li>
+<li>左半部分最大值小于等于右半部分最小值：</br><br>  <code>max( A [ i - 1 ] , B [ j - 1 ] )  ≤ min ( A [ i ] ， B [ j ] )</code></li>
+</ul>
+<p>那么，中位数就是左半部分最大的值，<br>即：<br><code>max ( A [ i - 1 ] , B [ j - 1 ] ) </code><br><img src="https://img-blog.csdnimg.cn/20181205142939455.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="奇数"></p>
+<hr>
+<p><strong>对于第一个条件：</strong><br>我们对总长度为偶数和奇数进行了分类讨论，其实因为Int运算的特性，我们可以将条件合并起来，得出：<br><code>j = ( m + n + 1 ) / 2 - i</code></p>
+<ul>
+<li>当<code>m+n</code>为偶数时，<code>m + n</code>能把2整除，Int(1/2) = 0</li>
+<li>当<code>m+n</code>为奇数时，<code>m + n + 1</code>能把2整除</li>
+</ul>
+<p>所以对于偶数的情况，将<code>j = ( m + n ) / 2 - i</code>变成<code>j = ( m + n + 1 ) / 2 - i</code>对整个结果是没有影响的。<br>由于<code>0 ≤ i ≤ m</code>，为保证<code>0 ≤ j ≤ n</code>，我们需要保证<code>m ≤ n</code>。</p>
+<ul>
+<li><code>m ≤ n ，i ≤ m，j = (m + n + 1) / 2 - i ≥ (m + m + 1) / 2 - m = 0</code></li>
+<li><code>m ≤ n ，i ≥ 0 , j = (m + n + 1) / 2 - i ≤ (n + n + 1) / 2 - i ≤ (n + n + 1) / 2 = n  </code></li>
+</ul>
+<hr>
+<p><strong>对于第二个条件：</strong><br>奇数和偶数的情况是一样的，为了保证<code>max( A [ i - 1 ] , B [ j - 1 ] )  ≤ min ( A [ i ] ， B [ j ] )</code>，而<code>A[ i - 1 ] &lt; A [ i ] </code>， <code>B[ j - 1 ] &lt; B [ j ] </code>，所以只需要保证<code> B [ j - 1 ] ≤ A[ i ]</code>，<code> A [ i - 1 ] ≤ B[ j ]</code>即可。</p>
+<p>现在我们来看，如何保证：<code> B [ j - 1 ] ≤ A[ i ]</code>，<code> A [ i - 1 ] ≤ B[ j ]</code></p>
+<ul>
+<li>如果<code> B [ j - 1 ] ≤ A [ i ]</code>，<code> A [ i - 1 ] ≤ B[ j ]</code>，那么我们可以直接得到结果；</li>
+<li>如果<code> B [ j - 1 ] &gt; A [ i ]</code>，意味着A [ i ]过小，因为有序，我们只需要将i增加，而i的增减和j的增减是相反的，i变大，j就会变小，而i变大，A[ i ]也会跟着变大，j减小，B[ j ]也会减小；</li>
+<li>如果<code> A [ i - 1 ] &gt; B [ i ]</code>，意味着A [ i ]过大，因为有序，我们只需要将i减小，i减小，j就会变大；<br>重复2，3步直到满足条件。</li>
+</ul>
+<hr>
+<p>现在，让我们来考虑一下边界问题，即当 i = 0 ，i = m ，j = 0， j = n的情况：</p>
+<ul>
+<li>当i = 0 或者 j = 0 即切在了最前面，如下图：<br><img src="https://img-blog.csdnimg.cn/20181206114219162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>这时当 i = 0，左半部分最大值即为B [ j - 1] , 当j = 0 时，左半部分最大值是A [ i - 1]；右半部分最小值不变。</li>
+<li>当i = m 或者 j = n时，即切在了最后面，如下图：<br><img src="https://img-blog.csdnimg.cn/20181206114331155.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L215aW5jbHVkZQ==,size_16,color_FFFFFF,t_70" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>这时当 i = m，右半部分最小值即为B [ j ] , 当j = n 时，右半部分最小值是A [ i]；左半部分最大值不变。</li>
+</ul>
+<hr>
+<p>所以总结起来就是：</p>
+<ul>
+<li>(j = 0 or i = m or B[ j − 1 ] ≤ A[ i ]) 或是<br>(i = 0 or j = n or A[ i − 1 ] ≤ B [ j ] )<br>这意味着 i 是完美的，我们可以停止搜索。</li>
+<li>j &gt; 0 and i &lt; m and B[ j − 1 ] &gt; A [ i ]<br>这意味着 i 太小，我们必须增大它。</li>
+<li>i &gt; 0 and j &lt; n and A[ i − 1 ] &gt; B [ j ]<br>这意味着 i 太大，我们必须减小它。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">findMedianSortedArrays</span>(<span class="hljs-keyword">_</span> <span class="hljs-params">nums1</span>: [<span class="hljs-type">Int</span>], <span class="hljs-keyword">_</span> <span class="hljs-params">nums2</span>: [<span class="hljs-type">Int</span>])</span> -&gt; <span class="hljs-type">Double</span> &#123;<br>        <span class="hljs-keyword">let</span> m <span class="hljs-operator">=</span> nums1.count, n <span class="hljs-operator">=</span> nums2.count<br>        <span class="hljs-keyword">if</span> m <span class="hljs-operator">&gt;</span> n &#123;<br>            <span class="hljs-keyword">return</span> findMedianSortedArrays(nums2, nums1)<br>        &#125;<br>        <br>        <span class="hljs-keyword">var</span> halfLength : <span class="hljs-type">Int</span> <span class="hljs-operator">=</span> (m <span class="hljs-operator">+</span> n <span class="hljs-operator">+</span> <span class="hljs-number">1</span>) <span class="hljs-operator">&gt;&gt;</span> <span class="hljs-number">1</span><br>        <span class="hljs-keyword">var</span> begin <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, end <span class="hljs-operator">=</span> m<br>        <span class="hljs-keyword">var</span> maxLeft <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, minRight <span class="hljs-operator">=</span> <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span> begin <span class="hljs-operator">&lt;=</span> end &#123;<br>            <span class="hljs-keyword">let</span> mid1 <span class="hljs-operator">=</span> (begin <span class="hljs-operator">+</span> end) <span class="hljs-operator">&gt;&gt;</span> <span class="hljs-number">1</span><br>            <span class="hljs-keyword">let</span> mid2 <span class="hljs-operator">=</span> halfLength <span class="hljs-operator">-</span> mid1<br>            <span class="hljs-keyword">if</span> mid1 <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-operator">&amp;&amp;</span> mid2 <span class="hljs-operator">&lt;</span> n <span class="hljs-operator">&amp;&amp;</span> nums1[mid1 <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] <span class="hljs-operator">&gt;</span> nums2[mid2] &#123;<br>                end <span class="hljs-operator">=</span> mid1 <span class="hljs-operator">-</span> <span class="hljs-number">1</span><br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> mid2 <span class="hljs-operator">&gt;</span> <span class="hljs-number">0</span> <span class="hljs-operator">&amp;&amp;</span> mid1 <span class="hljs-operator">&lt;</span> m <span class="hljs-operator">&amp;&amp;</span> nums1[mid1] <span class="hljs-operator">&lt;</span> nums2[mid2 <span class="hljs-operator">-</span> <span class="hljs-number">1</span>] &#123;<br>                begin <span class="hljs-operator">=</span> mid1 <span class="hljs-operator">+</span> <span class="hljs-number">1</span><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">if</span> mid1 <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;<br>                    maxLeft <span class="hljs-operator">=</span> nums2 [mid2 <span class="hljs-operator">-</span> <span class="hljs-number">1</span>]<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> mid2 <span class="hljs-operator">==</span> <span class="hljs-number">0</span> &#123;<br>                    maxLeft <span class="hljs-operator">=</span> nums1[mid1 <span class="hljs-operator">-</span> <span class="hljs-number">1</span>]<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    maxLeft <span class="hljs-operator">=</span> <span class="hljs-built_in">max</span>(nums1[mid1 <span class="hljs-operator">-</span> <span class="hljs-number">1</span>], nums2[mid2 <span class="hljs-operator">-</span> <span class="hljs-number">1</span>])<br>                &#125;<br>                <br>                <span class="hljs-keyword">if</span> (m <span class="hljs-operator">+</span> n) <span class="hljs-operator">%</span> <span class="hljs-number">2</span> <span class="hljs-operator">==</span> <span class="hljs-number">1</span> &#123;<br>                    <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(maxLeft)<br>                &#125;<br>                <br>                <span class="hljs-keyword">if</span> mid1 <span class="hljs-operator">==</span> m &#123;<br>                    minRight <span class="hljs-operator">=</span> nums2[mid2]<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> mid2 <span class="hljs-operator">==</span> n &#123;<br>                    minRight <span class="hljs-operator">=</span> nums1[mid1]<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    minRight <span class="hljs-operator">=</span> <span class="hljs-built_in">min</span>(nums1[mid1], nums2[mid2])<br>                &#125;<br>                <span class="hljs-keyword">break</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-type">Double</span>(maxLeft <span class="hljs-operator">+</span> minRight) <span class="hljs-operator">*</span> <span class="hljs-number">0.5</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="Complexity-Analysis：-3"><a href="#Complexity-Analysis：-3" class="headerlink" title="Complexity Analysis："></a>Complexity Analysis：</h5><ul>
+<li>时间复杂度： O(log(min（m，n）) )。我们对较短的数组进行了二分查找，所以时间复杂度是 O（log（min（m，n）））。</li>
+<li>空间复杂度：O(1)。只使用了固定变量，与数组长度无关，所以空间复杂度是O(1)。</li>
+</ul>
+<hr>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#x39;&#x34;&#x40;&#x31;&#54;&#51;&#46;&#99;&#x6f;&#x6d;">&#x5f;&#x31;&#57;&#x39;&#x34;&#x40;&#x31;&#54;&#51;&#46;&#99;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
+<li><a href="https://adrenine.github.io/">Blog - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Adrenine">Github - Adrenine</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/LeetCode/">LeetCode</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E7%BB%84/">数组</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">二分查找</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">分治算法</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/31/%E3%80%90%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0-7%E3%80%91Http2.0%E4%BA%86%E8%A7%A3/">
+                        <span class="hidden-mobile">Http2.0了解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MTc4Ni8xODMzMg==">
+    <script type="text/javascript">
+      Fluid.utils.lazyComments('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

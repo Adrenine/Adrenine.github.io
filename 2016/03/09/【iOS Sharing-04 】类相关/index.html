@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="【iOS笔记】系列目录
+目录1、请用一句话概述分类的概念，并阐述分类的优点。2、多个同宿主分类中的都重写了一个同名方法，哪个分类的同名方法会生效？为什么？3. Category、 Extension和继承的区别？4. isKindOfClass、isMemberOfClass作用分别是什么？5. +load 和 +initialize 的区别是什么？">
+  <meta name="author" content="XieBangyao">
+  <meta name="keywords" content="">
+  
+  <title>【iOS Sharing】类相关 - XieBangyao&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"adrenine.github.io","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>[object Object]</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【iOS Sharing】类相关">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-03-09 17:49" pubdate>
+        2016年3月9日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【iOS Sharing】类相关</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年3月17日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、请用一句话概述分类的概念，并阐述分类的优点。"><a href="#1、请用一句话概述分类的概念，并阐述分类的优点。" class="headerlink" title="1、请用一句话概述分类的概念，并阐述分类的优点。"></a><a href="#h3-1">1、请用一句话概述分类的概念，并阐述分类的优点。</a></h3><h3 id="2、多个同宿主分类中的都重写了一个同名方法，哪个分类的同名方法会生效？为什么？"><a href="#2、多个同宿主分类中的都重写了一个同名方法，哪个分类的同名方法会生效？为什么？" class="headerlink" title="2、多个同宿主分类中的都重写了一个同名方法，哪个分类的同名方法会生效？为什么？"></a><a href="#h3-2">2、多个同宿主分类中的都重写了一个同名方法，哪个分类的同名方法会生效？为什么？</a></h3><h3 id="3-Category、-Extension和继承的区别？"><a href="#3-Category、-Extension和继承的区别？" class="headerlink" title="3. Category、 Extension和继承的区别？"></a><a href="#h3-3">3. Category、 Extension和继承的区别？</a></h3><h3 id="4-isKindOfClass、isMemberOfClass作用分别是什么？"><a href="#4-isKindOfClass、isMemberOfClass作用分别是什么？" class="headerlink" title="4. isKindOfClass、isMemberOfClass作用分别是什么？"></a><a href="#h3-4">4. isKindOfClass、isMemberOfClass作用分别是什么？</a></h3><h3 id="5-load-和-initialize-的区别是什么？"><a href="#5-load-和-initialize-的区别是什么？" class="headerlink" title="5. +load 和 +initialize 的区别是什么？"></a><a href="#h3-5">5. +load 和 +initialize 的区别是什么？</a></h3><span id="more"></span>
+
+<hr>
+<h3 id="h3-1">1、请用一句话概述分类的概念，并阐述分类的优点。</h3>
+答：
+
+<p>概述：Objective-C中的分类是修饰模式的一种具体实现，主要作用是在不改变原有类的基础上，动态的为类扩展功能（添加方法）。</p>
+<p>分类的优点</p>
+<ul>
+<li>声明私有方法</li>
+<li>分解庞大的类文件</li>
+<li>将Framework私有方法公开化</li>
+<li>模拟多继承</li>
+</ul>
+<hr>
+<h3 id="h3-2">2、多个同宿主分类中的都重写了一个同名方法，哪个分类的同名方法会生效？为什么？</h3>
+答：
+
+<p>运行时在处理分类时会倒序遍历分类数组，最先访问最后编译的类，最后编译的类的同名方法最终生效。</p>
+<p>下面我们来看看源码解析：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs objc"><span class="hljs-keyword">int</span> mcount = <span class="hljs-number">0</span>; <span class="hljs-comment">// 记录方法的数量</span><br><span class="hljs-keyword">int</span> propcount = <span class="hljs-number">0</span>; <span class="hljs-comment">// 记录属性的数量</span><br><span class="hljs-keyword">int</span> protocount = <span class="hljs-number">0</span>; <span class="hljs-comment">// 记录协议的数量</span><br><span class="hljs-keyword">int</span> i = cats-&gt;count; <span class="hljs-comment">// 获取分类个数</span><br><span class="hljs-keyword">bool</span> fromBundle = <span class="hljs-literal">NO</span>; <span class="hljs-comment">// 记录是否是从 bundle 中取的</span><br><br><span class="hljs-keyword">while</span> (i--) &#123; <span class="hljs-comment">// 从后往前遍历,保证先取最后编译的类</span><br>    auto&amp;; <br>    entry = cats-&gt;list[i]; <span class="hljs-comment">// 分类,locstamped_category_t 类型</span><br>    <br>    <span class="hljs-comment">// 取出分类中的方法列表;如果是元类,取得的是类方法列表;否则取得的是实例方法列表</span><br>    method_list_t *mlist = entry.cat-&gt;methodsForMeta(isMeta);<br>    <span class="hljs-keyword">if</span> (mlist) &#123;<br>        mlists[mcount++] = mlist; <span class="hljs-comment">// 将方法列表放入 mlists 方法列表数组中</span><br>        fromBundle |= entry.hi-&gt;isBundle(); <span class="hljs-comment">// 分类的头部信息中存储了是否是 bundle,将其记住</span><br>    &#125;<br><br>    <span class="hljs-comment">// 取出分类中的属性列表,如果是元类,取得是nil</span><br>    property_list_t *proplist = entry.cat-&gt;propertiesForMeta(isMeta);<br>    <span class="hljs-keyword">if</span> (proplist) &#123;<br>        proplists[propcount++] = proplist; <span class="hljs-comment">// 将属性列表放入 proplists 属性列表数组中</span><br>    &#125;<br><br>    <span class="hljs-comment">// 取出分类中遵循的协议列表</span><br>    protocol_list_t *protolist = entry.cat-&gt;protocols;<br>    <span class="hljs-keyword">if</span> (protolist) &#123;<br>        protolists[protocount++] = protolist; <span class="hljs-comment">// 将协议列表放入 protolists 协议列表数组中</span><br>    &#125;<br>&#125; <br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="h3-3">3. Category、 Extension和继承的区别？</h3>
+
+<ul>
+<li><code>Category</code>有名字，<code>Extension</code>没有名字，是一种特殊的<code>Category</code>。</li>
+<li><code>Category</code>只能扩展方法（属性仅仅是声明，并没真正实现），<code>Extension</code>可以扩展属性、成员变量和方法。</li>
+<li>继承可以增加，修改或者删除方法，并且可以增加属性。</li>
+</ul>
+<hr>
+<h3 id="h3-4">4. isKindOfClass、isMemberOfClass作用分别是什么？</h3>
+
+<ul>
+<li><code>isKindOfClass</code>：作用是某个对象属于某个类型或者继承自某类型。</li>
+<li><code>isMemberOfClass</code>：某个对象确切属于某个类型。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs objc"><span class="hljs-comment">//Dog继承自Animal</span><br>Animal *a = [Animal new];<br>Dog *d = [Dog new];<br>        <br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[a isKindOfClass:[Animal <span class="hljs-keyword">class</span>]]);    <span class="hljs-comment">//1</span><br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[a isMemberOfClass:[Animal <span class="hljs-keyword">class</span>]]);  <span class="hljs-comment">//1</span><br>        <br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[d isKindOfClass:[Animal <span class="hljs-keyword">class</span>]]);    <span class="hljs-comment">//1</span><br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[d isMemberOfClass:[Animal <span class="hljs-keyword">class</span>]]);  <span class="hljs-comment">//0</span><br><br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[d isKindOfClass:[Dog <span class="hljs-keyword">class</span>]]);       <span class="hljs-comment">//1</span><br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[d isMemberOfClass:[Dog <span class="hljs-keyword">class</span>]]);     <span class="hljs-comment">//1</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>Warning:</strong><br>不要对NSArray、NSString等Apple实现的类进行<code>isMemberOfClass</code>操作，得出的结果是<code>false</code>。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objc"><span class="hljs-built_in">NSString</span> *s = <span class="hljs-string">@&quot;&quot;</span>;<br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%d&quot;</span>,[s isMemberOfClass:[<span class="hljs-built_in">NSString</span> <span class="hljs-keyword">class</span>]]);  <span class="hljs-comment">//0</span><br></code></pre></td></tr></table></figure>
+<p>Apple使用类簇的方式实现的这些类，所以s不是<code>NSString</code>类的实例。</p>
+<h3 id="h3-5">5. +load 和 +initialize 的区别是什么？</h3>
+
+<blockquote>
+<p>+(void)load;</p>
+</blockquote>
+<p>+load 方法是当类或分类被添加到 Objective-C runtime 时被调用的，实现这个方法可以让我们在类加载的时候执行一些类相关的行为。子类的 +load 方法会在它的所有父类的 +load 方法之后执行，而分类的 +load 方法会在它的主类的 +load 方法之后执行。但是不同的类之间的 +load 方法的调用顺序是不确定的。</p>
+<blockquote>
+<p>+(void)initialize;</p>
+</blockquote>
+<p>+initialize 方法是在类或它的子类收到第一条消息之前被调用的，这里所指的消息包括实例方法和类方法的调用。也就是说 +initialize 方法是以懒加载的方式被调用的，如果程序一直没有给某个类或它的子类发送消息，那么这个类的 +initialize 方法是永远不会被调用的。</p>
+<hr>
+<h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><p><strong>邮箱：</strong> adrenine@163.com</br></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
+<li><a href="https://adrenine.github.io/">Blog - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Adrenine">Github - Adrenine</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/iOS-Sharing/">iOS Sharing</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/iOS-Sharing/">iOS Sharing</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%9F%A5%E8%AF%86%E7%82%B9/">知识点</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/03/23/%E3%80%90iOS%20Sharing-05%20%E3%80%91%E7%BD%91%E7%BB%9C%E7%9B%B8%E5%85%B3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【iOS Sharing】网络相关</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/03/01/%E3%80%90iOS%20Sharing-03%20%E3%80%91%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3/">
+                        <span class="hidden-mobile">【iOS Sharing】多线程相关</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="lv-container" data-id="city" data-uid="MTAyMC80MTc4Ni8xODMzMg==">
+    <script type="text/javascript">
+      Fluid.utils.lazyComments('lv-container', function() {
+        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
+      });
+    </script>
+    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
