@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -16,10 +16,10 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="【iOS笔记】系列目录
 目录1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？2. NSUserDefaults 没有存储 key 的时候默认返回什么？3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?4. NSUserDefaults 旧数据总能被新设置的替换吗？5. NSUserDef">
-  <meta name="author" content="XieBangyao">
+  <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>【iOS Sharing】NSUserDefaults相关 - XieBangyao&#39;s Blog</title>
+  <title>【iOS Sharing】NSUserDefaults相关 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -57,7 +57,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"adrenine.github.io","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -69,7 +69,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>[object Object]</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>XieBangyao</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -88,7 +88,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -100,7 +100,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -112,7 +112,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -124,7 +124,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -136,7 +136,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -175,7 +175,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2016-04-27 17:50" pubdate>
-        2016年4月27日 下午
+        April 27, 2016 pm
       </time>
     </span>
   
@@ -202,14 +202,6 @@
   
 
   
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
   
 </div>
 
@@ -238,12 +230,12 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 下午
+                  本文最后更新于：March 17, 2021 pm
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
+              <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-NSUserDefaults-能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？"><a href="#1-NSUserDefaults-能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？" class="headerlink" title="1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？"></a><a href="#h3-1">1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？</a></h3><h3 id="2-NSUserDefaults-没有存储-key-的时候默认返回什么？"><a href="#2-NSUserDefaults-没有存储-key-的时候默认返回什么？" class="headerlink" title="2. NSUserDefaults 没有存储 key 的时候默认返回什么？"></a><a href="#h3-2">2. NSUserDefaults 没有存储 key 的时候默认返回什么？</a></h3><h3 id="3-NSUserDefaults-存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的"><a href="#3-NSUserDefaults-存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的" class="headerlink" title="3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?"></a><a href="#h3-3">3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?</a></h3><h3 id="4-NSUserDefaults-旧数据总能被新设置的替换吗？"><a href="#4-NSUserDefaults-旧数据总能被新设置的替换吗？" class="headerlink" title="4. NSUserDefaults 旧数据总能被新设置的替换吗？"></a><a href="#h3-4">4. NSUserDefaults 旧数据总能被新设置的替换吗？</a></h3><h3 id="5-NSUserDefaults-性能如何"><a href="#5-NSUserDefaults-性能如何" class="headerlink" title="5. NSUserDefaults 性能如何?"></a><a href="#h3-5">5. NSUserDefaults 性能如何?</a></h3><span id="more"></span>
 
 <hr>
@@ -308,11 +300,11 @@
 <p>从性能上分析, 缓存的机制带来了一定的性能提升, 通过一些网上的文章了解到在10万个key的情况下, 通过<code>NSUserDefaults</code>来读取value是1ms级别的, 然而当你从plist文件中直接读取, 需要100ms的级别开销, 但是写是个相反的结果, 要是你写1个10万条数据到plist文件中是1s级别的开销，而同时写入10万条<code>NSUserDefaults</code>键值对则需要10s级别的延迟. 我们都知道在创建key/value时, 程序需要在内存中也创建一个相应的映射关系, 然后系统会时不时调用<code>synchronsize</code>方法同步数据, 很多的方法会导致创建key/value pair被阻塞</p>
 <p>总的来说, 使用<code>NSUserDefaults</code>是比较高效的, 但是不能大量的将数据通过 NSUserDefaults 中</p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#57;&#57;&#52;&#x40;&#x31;&#54;&#51;&#x2e;&#99;&#111;&#109;">&#x5f;&#49;&#57;&#57;&#52;&#x40;&#x31;&#54;&#51;&#x2e;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#57;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#x5f;&#49;&#x39;&#57;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
-<li><a href="https://adrenine.github.io/">Blog - Adrenine</a></li>
+<li><a target="_blank" rel="noopener" href="https://adrenine.github.io/">Blog - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/Adrenine">Github - Adrenine</a></li>
 </ul>
 
@@ -356,7 +348,7 @@
                       <a href="/2016/05/09/%E3%80%90iOS%20Sharing-09%20%E3%80%91UIView%E7%9B%B8%E5%85%B3/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">【iOS Sharing】UIView相关</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
@@ -365,7 +357,7 @@
                     
                       <a href="/2016/04/19/%E3%80%90iOS%20Sharing-07%20%E3%80%91%E5%B1%9E%E6%80%A7%E7%9B%B8%E5%85%B3/">
                         <span class="hidden-mobile">【iOS Sharing】属性相关</span>
-                        <span class="visible-mobile">下一篇</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -400,7 +392,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -426,7 +418,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -435,7 +427,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+                 for="local-search-input">keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
