@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,10 +19,10 @@
 答：
 （1）、一般对于那些遵循NSCopying协议的类才能使用copy，例如针对那些有不可变类型和可变类型的类，NSString, NSArray 与之对应的是NSMutableString, NSMutableArray等。因为他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。
 （2）、bloc">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>怎么用 copy 关键字？ - Hexo</title>
+  <title>怎么用 copy 关键字？ - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -91,7 +91,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -103,7 +103,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -115,7 +115,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -127,7 +127,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -139,7 +139,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -178,7 +178,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2017-12-06 20:34" pubdate>
-        December 6, 2017 pm
+        2017年12月6日 晚上
       </time>
     </span>
   
@@ -233,7 +233,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：March 17, 2021 pm
+                  本文最后更新于：2021年3月17日 下午
                 
               </p>
             
@@ -250,7 +250,7 @@
 <p><strong>示例：</strong></p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *userId;<br><br>- (<span class="hljs-keyword">instancetype</span>)initWithUserId:(<span class="hljs-built_in">NSString</span> *)userId &#123;<br>   <span class="hljs-keyword">self</span> = [<span class="hljs-keyword">super</span> init];<br>   <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">self</span>) &#123;<br>       <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>;<br>   &#125;<br>   _userId = [userId <span class="hljs-keyword">copy</span>];<br>   <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#x39;&#57;&#x34;&#64;&#49;&#x36;&#51;&#46;&#99;&#x6f;&#109;">&#95;&#x31;&#x39;&#57;&#x34;&#64;&#49;&#x36;&#51;&#46;&#99;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#x39;&#52;&#64;&#x31;&#54;&#x33;&#46;&#99;&#x6f;&#109;">&#95;&#x31;&#57;&#x39;&#52;&#64;&#x31;&#54;&#x33;&#46;&#99;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -302,7 +302,7 @@
                       <a href="/2017/12/07/%E3%80%90%E9%9D%A0%E8%B0%B1%E7%A8%8B%E5%BA%8F%E5%91%98-4%E3%80%91%E8%BF%99%E4%B8%AA%E5%86%99%E6%B3%95%E4%BC%9A%E5%87%BA%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9A-property-copy-NSMutableArray-array/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">这个写法会出什么问题： @property (copy) NSMutableArray *array</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -311,7 +311,7 @@
                     
                       <a href="/2017/12/05/%E3%80%90%E9%9D%A0%E8%B0%B1%E7%A8%8B%E5%BA%8F%E5%91%98-2%E3%80%91%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%BD%BF%E7%94%A8-weak-%E5%85%B3%E9%94%AE%E5%AD%97%EF%BC%8C%E7%9B%B8%E6%AF%94-assign-%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%EF%BC%9F/">
                         <span class="hidden-mobile">什么情况使用 weak 关键字，相比 assign 有什么不同？</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -346,7 +346,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -372,7 +372,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -381,7 +381,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

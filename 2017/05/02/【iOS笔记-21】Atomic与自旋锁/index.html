@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -19,10 +19,10 @@
   自旋锁 不同于互斥锁 如果访问的资源被占用，它会处于 忙等 状态。自旋锁由于一直处于忙等状态所以他在线程锁被释放的时候会立即获取而不用唤醒，所以其执行效率是很高的，尤其是在多核的cpu上运行效率很高，但是其忙等的状态会消耗cpu的性能，所以其性能比互斥锁要低很多。
   atomic 的底层实现，老版本是自旋锁，新版本是互斥锁。
   atomic 并">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>Atomic与自旋锁 - Hexo</title>
+  <title>Atomic与自旋锁 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -91,7 +91,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -103,7 +103,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -115,7 +115,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -127,7 +127,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -139,7 +139,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -178,7 +178,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2017-05-02 20:35" pubdate>
-        May 2, 2017 pm
+        2017年5月2日 晚上
       </time>
     </span>
   
@@ -233,7 +233,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：March 17, 2021 pm
+                  本文最后更新于：2021年3月17日 下午
                 
               </p>
             
@@ -250,7 +250,7 @@
 <p>我们的 <code>number</code> 是 <code>atomic</code> 进行加锁了啊，为什么还会出现线程安全问题。其实答案上文已经有了，只是需要我们仔细去品，<code>atomic</code> 只是针对 <code>setter</code> 和 <code>getter</code> 方法进行加锁，上述代码有两个异步线程同时执行，如果某个时间 <code>A线程</code> 执行到<code>getter</code>方法，之后 <code>cpu</code> 立即切换到 <code>线程B</code> 去执行他的get方法那么这个时候他们进行 <code>+1</code> 的处理并执行<code>setter</code>方法，那么两个线程的 <code>number</code> 就会是一样的结果，这样我们的 <code>+1</code>就会出现线程安全问题，就会导致我们的数字出现偏差</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844904101981978637">链接</a></p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#57;&#x34;&#x40;&#x31;&#x36;&#51;&#46;&#99;&#111;&#109;">&#95;&#x31;&#57;&#57;&#x34;&#x40;&#x31;&#x36;&#51;&#46;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#x39;&#57;&#x34;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;">&#x5f;&#x31;&#x39;&#57;&#x34;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -296,7 +296,7 @@
                       <a href="/2017/07/03/%E3%80%90iOS%E7%AC%94%E8%AE%B0-22%E3%80%91KVC/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">KVC</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -305,7 +305,7 @@
                     
                       <a href="/2017/04/23/%E3%80%90iOS%E7%AC%94%E8%AE%B0-20%E3%80%91iOS%E8%87%AA%E6%97%8B%E9%94%81%E3%80%81%E4%BA%92%E6%96%A5%E9%94%81%E4%B8%8E%E9%80%92%E5%BD%92%E9%94%81/">
                         <span class="hidden-mobile">iOS自旋锁、互斥锁与递归锁</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -340,7 +340,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -366,7 +366,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -375,7 +375,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>

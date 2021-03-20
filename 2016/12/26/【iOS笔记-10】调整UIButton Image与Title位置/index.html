@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -18,10 +18,10 @@
 1、UIEdgeInsetsMake介绍首先简单介绍一下UIEdgeInsetsMake引用：UIEdgeInsetsMake使用详解的图片和讲解，再加上自己的理解与实现
 先看定义
 123typedef struct UIEdgeInsets &amp;#123;  CGFloat top, left, bottom, right; // specify amo">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>调整UIButton Image与Title位置 - Hexo</title>
+  <title>调整UIButton Image与Title位置 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -90,7 +90,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                Home
+                首页
               </a>
             </li>
           
@@ -102,7 +102,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archives
+                归档
               </a>
             </li>
           
@@ -114,7 +114,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Categories
+                分类
               </a>
             </li>
           
@@ -126,7 +126,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Tags
+                标签
               </a>
             </li>
           
@@ -138,7 +138,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                About
+                关于
               </a>
             </li>
           
@@ -177,7 +177,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2016-12-26 19:35" pubdate>
-        December 26, 2016 pm
+        2016年12月26日 晚上
       </time>
     </span>
   
@@ -232,7 +232,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：March 17, 2021 pm
+                  本文最后更新于：2021年3月17日 下午
                 
               </p>
             
@@ -286,7 +286,7 @@
 </ul>
 <p>贴出代码，就不一一讲解了：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">- (<span class="hljs-keyword">void</span>)layoutButtonWithEdgeInsetsStyle:(<span class="hljs-built_in">MKButtonEdgeInsetsStyle</span>)style<br>                        imageTitleSpace:(<span class="hljs-built_in">CGFloat</span>)space &#123;<br>    <span class="hljs-comment">// 1. 得到imageView和titleLabel的宽、高</span><br>    <span class="hljs-comment">//    CGFloat imageWith = self.imageView.frame.size.width;</span><br>    <span class="hljs-comment">//    CGFloat imageHeight = self.imageView.frame.size.height;</span><br>    <span class="hljs-built_in">CGFloat</span> imageWith = <span class="hljs-keyword">self</span>.currentImage.size.width;<br>    <span class="hljs-built_in">CGFloat</span> imageHeight = <span class="hljs-keyword">self</span>.currentImage.size.height;<br><br>    <span class="hljs-built_in">CGFloat</span> labelWidth = <span class="hljs-number">0.0</span>;<br>    <span class="hljs-built_in">CGFloat</span> labelHeight = <span class="hljs-number">0.0</span>;<br>    <span class="hljs-keyword">if</span> ([<span class="hljs-built_in">UIDevice</span> currentDevice].systemVersion.floatValue &gt;= <span class="hljs-number">8.0</span>) &#123;<br>        <span class="hljs-comment">// 由于iOS8中titleLabel的size为0，用下面的这种设置</span><br>        labelWidth = <span class="hljs-keyword">self</span>.titleLabel.intrinsicContentSize.width;<br>        labelHeight = <span class="hljs-keyword">self</span>.titleLabel.intrinsicContentSize.height;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        labelWidth = <span class="hljs-keyword">self</span>.titleLabel.frame.size.width;<br>        labelHeight = <span class="hljs-keyword">self</span>.titleLabel.frame.size.height;<br>    &#125;<br><br>    <span class="hljs-comment">// 2. 声明全局的imageEdgeInsets和labelEdgeInsets</span><br>    <span class="hljs-built_in">UIEdgeInsets</span> imageEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsZero</span>;<br>    <span class="hljs-built_in">UIEdgeInsets</span> labelEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsZero</span>;<br><br>    <span class="hljs-comment">// 3. 根据style和space得到imageEdgeInsets和labelEdgeInsets的值</span><br>    <span class="hljs-keyword">switch</span> (style) &#123;<br>        <span class="hljs-keyword">case</span> <span class="hljs-built_in">MKButtonEdgeInsetsStyleTop</span>: &#123;<br>            imageEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(-labelHeight-space, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -labelWidth);<br>            labelEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(<span class="hljs-number">0</span>, -imageWith, -imageHeight-space, <span class="hljs-number">0</span>);<br>        &#125;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-built_in">MKButtonEdgeInsetsStyleLeft</span>: &#123;<br>            imageEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(<span class="hljs-number">0</span>, -space, <span class="hljs-number">0</span>, space);<br>            labelEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(<span class="hljs-number">0</span>, space, <span class="hljs-number">0</span>, -space);<br>        &#125;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-built_in">MKButtonEdgeInsetsStyleBottom</span>: &#123;<br>            imageEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -labelHeight-space, -labelWidth);<br>            labelEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(-imageHeight-space, -imageWith, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>        &#125;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">case</span> <span class="hljs-built_in">MKButtonEdgeInsetsStyleRight</span>: &#123;<br>            imageEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(<span class="hljs-number">0</span>, labelWidth+space, <span class="hljs-number">0</span>, -labelWidth-space);<br>            labelEdgeInsets = <span class="hljs-built_in">UIEdgeInsetsMake</span>(<span class="hljs-number">0</span>, -imageWith-space, <span class="hljs-number">0</span>, imageWith+space);<br>        &#125;<br>            <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">default</span>:<br>            <span class="hljs-keyword">break</span>;<br>    &#125;<br>    <span class="hljs-comment">// 4. 赋值</span><br>    <span class="hljs-keyword">self</span>.titleEdgeInsets = labelEdgeInsets;<br>    <span class="hljs-keyword">self</span>.imageEdgeInsets = imageEdgeInsets;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<h3 id="3、联系方式"><a href="#3、联系方式" class="headerlink" title="3、联系方式"></a>3、联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#57;&#57;&#52;&#64;&#49;&#54;&#51;&#x2e;&#99;&#111;&#109;">&#x5f;&#49;&#57;&#57;&#52;&#64;&#49;&#54;&#51;&#x2e;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="3、联系方式"><a href="#3、联系方式" class="headerlink" title="3、联系方式"></a>3、联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#49;&#x39;&#57;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;">&#95;&#49;&#x39;&#57;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -332,7 +332,7 @@
                       <a href="/2016/12/30/%E3%80%90iOS%E7%AC%94%E8%AE%B0-11%E3%80%91iOS%E6%8E%A7%E4%BB%B6%E8%87%AA%E5%8A%A8%E9%80%82%E5%BA%94%E5%A4%A7%E5%B0%8F/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">iOS控件自适应大小</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -341,7 +341,7 @@
                     
                       <a href="/2016/12/23/%E3%80%90iOS%E7%AC%94%E8%AE%B0-9%E3%80%91class%E4%B8%8Eobjc_getClass%E6%96%B9%E6%B3%95/">
                         <span class="hidden-mobile">class与objc_getClass方法</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -376,7 +376,7 @@
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -402,7 +402,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -411,7 +411,7 @@
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
