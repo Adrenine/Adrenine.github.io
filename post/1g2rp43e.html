@@ -14,11 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【靠谱程序员】系列目录
-问：怎么用 copy 关键字？
-答：
-（1）、一般对于那些遵循NSCopying协议的类才能使用copy，例如针对那些有不可变类型和可变类型的类，NSString, NSArray 与之对应的是NSMutableString, NSMutableArray等。因为他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。
-（2）、bloc">
+  <meta name="description" content="copy关键字的使用及在ARC与MRC上的差异">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -253,7 +249,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 中午
+                  本文最后更新于：2021年3月22日 下午
                 
               </p>
             
@@ -264,13 +260,11 @@
 <li>（1）、一般对于那些遵循NSCopying协议的类才能使用copy，例如针对那些有不可变类型和可变类型的类，NSString, NSArray 与之对应的是NSMutableString, NSMutableArray等。因为他们之间可能进行赋值操作，为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。</li>
 <li>（2）、block一般也使用copy，这是MRC遗留下来的使用习惯<h5 id="tips"><a href="#tips" class="headerlink" title="tips:"></a>tips:</h5>  在 MRC 中,方法内部的 block 是在栈区的,使用 copy 可以把它放到堆区.在 ARC 中写<br>  不写都行：对于 block 使用copy还是strong效果是一样的，但写上copy也无伤大雅，还<br>  能时刻提醒我们：编译器自动对 block 进行了 copy 操作。如果不写 copy ，该类的调用<br>  者有可能会忘记或者根本不知道“编译器会自动对 block 进行了 copy 操作”，他们有可能会<br>  在调用之前自行拷贝属性值。这种操作多余而低效。你也许会对这种做法有些怪异，不需要写却<br>  依然写。</li>
 </ul>
-<span id="more"></span>  
-
 <hr>
 <p><strong>示例：</strong></p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *userId;<br><br>- (<span class="hljs-keyword">instancetype</span>)initWithUserId:(<span class="hljs-built_in">NSString</span> *)userId &#123;<br>   <span class="hljs-keyword">self</span> = [<span class="hljs-keyword">super</span> init];<br>   <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">self</span>) &#123;<br>       <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>;<br>   &#125;<br>   _userId = [userId <span class="hljs-keyword">copy</span>];<br>   <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#49;&#57;&#57;&#x34;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#111;&#109;">&#95;&#49;&#57;&#57;&#x34;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#49;&#57;&#x39;&#x34;&#x40;&#49;&#x36;&#x33;&#46;&#x63;&#x6f;&#109;">&#95;&#49;&#57;&#x39;&#x34;&#x40;&#49;&#x36;&#x33;&#46;&#x63;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -321,7 +315,7 @@
                     
                       <a href="/post/b5y4dc3.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">这个写法会出什么问题： @property (copy) NSMutableArray *array</span>
+                        <span class="hidden-mobile">深拷贝和浅拷贝与可变容器和不可变容器</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -330,7 +324,7 @@
                     
                     
                       <a href="/post/f9d3oq4d.html">
-                        <span class="hidden-mobile">什么情况使用 weak 关键字，相比 assign 有什么不同？</span>
+                        <span class="hidden-mobile">weak与assign辨析</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

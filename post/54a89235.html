@@ -14,8 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【iOS笔记】系列目录
-目录1、实例方法去哪里找？2、类方法去哪里找？3、分类的方法具体是在什么时候添加到类的方法列表中？4、class_addMethod()都需要什么参数?5、函数四要素都是什么？">
+  <meta name="description" content="实例方法，类方法，方法要素，方法添加与查找">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -250,15 +249,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、实例方法去哪里找？"><a href="#1、实例方法去哪里找？" class="headerlink" title="1、实例方法去哪里找？"></a><a href="#h3-1">1、实例方法去哪里找？</a></h3><h3 id="2、类方法去哪里找？"><a href="#2、类方法去哪里找？" class="headerlink" title="2、类方法去哪里找？"></a><a href="#h3-2">2、类方法去哪里找？</a></h3><h3 id="3、分类的方法具体是在什么时候添加到类的方法列表中？"><a href="#3、分类的方法具体是在什么时候添加到类的方法列表中？" class="headerlink" title="3、分类的方法具体是在什么时候添加到类的方法列表中？"></a><a href="#h3-3">3、分类的方法具体是在什么时候添加到类的方法列表中？</a></h3><h3 id="4、class-addMethod-都需要什么参数"><a href="#4、class-addMethod-都需要什么参数" class="headerlink" title="4、class_addMethod()都需要什么参数?"></a><a href="#h3-4">4、class_addMethod()都需要什么参数?</a></h3><h3 id="5、函数四要素都是什么？"><a href="#5、函数四要素都是什么？" class="headerlink" title="5、函数四要素都是什么？"></a><a href="#h3-5">5、函数四要素都是什么？</a></h3><span id="more"></span>
-
-<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、实例方法去哪里找？"><a href="#1、实例方法去哪里找？" class="headerlink" title="1、实例方法去哪里找？"></a><a href="#h3-1">1、实例方法去哪里找？</a></h3><h3 id="2、类方法去哪里找？"><a href="#2、类方法去哪里找？" class="headerlink" title="2、类方法去哪里找？"></a><a href="#h3-2">2、类方法去哪里找？</a></h3><h3 id="3、分类的方法具体是在什么时候添加到类的方法列表中？"><a href="#3、分类的方法具体是在什么时候添加到类的方法列表中？" class="headerlink" title="3、分类的方法具体是在什么时候添加到类的方法列表中？"></a><a href="#h3-3">3、分类的方法具体是在什么时候添加到类的方法列表中？</a></h3><h3 id="4、class-addMethod-都需要什么参数"><a href="#4、class-addMethod-都需要什么参数" class="headerlink" title="4、class_addMethod()都需要什么参数?"></a><a href="#h3-4">4、class_addMethod()都需要什么参数?</a></h3><h3 id="5、函数四要素都是什么？"><a href="#5、函数四要素都是什么？" class="headerlink" title="5、函数四要素都是什么？"></a><a href="#h3-5">5、函数四要素都是什么？</a></h3><hr>
 <h3 id="h3-1">1、实例方法去哪里找？</h3>
 答：其所属的类的方法表
 

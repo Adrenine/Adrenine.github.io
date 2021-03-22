@@ -14,12 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【开发笔记】系列目录
-目录一、Http/2.0 特点&amp;nbsp;&amp;nbsp;1.字数统计和阅读时长(网站底部/文章内)&amp;nbsp;&amp;nbsp;2.转换连接&amp;nbsp;&amp;nbsp;3.本地搜索二、常用插件&amp;nbsp;&amp;nbsp;1.字数统计和阅读时长(网站底部/文章内)&amp;nbsp;&amp;nbsp;2.转换连接&amp;nbsp;&amp;nbsp;3.本地搜索&amp;nbsp;&amp;nbsp;4.文章底部增加版权声明">
+  <meta name="description" content="简要了解Http2.0的特点、优化与性能瓶颈">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>Http2.0了解 - XieBangyao&#39;s Blog</title>
+  <title>浅析Http2.0 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -176,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Http2.0了解">
+            <span class="h2" id="subtitle" title="浅析Http2.0">
               
             </span>
 
@@ -246,18 +245,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Http2.0了解</h1>
+            <h1 style="display: none">浅析Http2.0</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 中午
+                  本文最后更新于：2021年3月22日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="【开发笔记】系列目录"><a href="#【开发笔记】系列目录" class="headerlink" title="【开发笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/a9ea42fe.html">【开发笔记】系列目录</a></h2><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="一、Http-2-0-特点"><a href="#一、Http-2-0-特点" class="headerlink" title="一、Http/2.0 特点"></a><a href="#1">一、Http/2.0 特点</a></h3><h4 id="nbsp-nbsp-1-字数统计和阅读时长-网站底部-文章内"><a href="#nbsp-nbsp-1-字数统计和阅读时长-网站底部-文章内" class="headerlink" title="&nbsp;&nbsp;1.字数统计和阅读时长(网站底部/文章内)"></a>&nbsp;&nbsp;<a href="#2-1">1.字数统计和阅读时长(网站底部/文章内)</a></h4><h4 id="nbsp-nbsp-2-转换连接"><a href="#nbsp-nbsp-2-转换连接" class="headerlink" title="&nbsp;&nbsp;2.转换连接"></a>&nbsp;&nbsp;<a href="#2-2">2.转换连接</a></h4><h4 id="nbsp-nbsp-3-本地搜索"><a href="#nbsp-nbsp-3-本地搜索" class="headerlink" title="&nbsp;&nbsp;3.本地搜索"></a>&nbsp;&nbsp;<a href="#2-3">3.本地搜索</a></h4><h3 id="二、常用插件"><a href="#二、常用插件" class="headerlink" title="二、常用插件"></a><a href="#2">二、常用插件</a></h3><h4 id="nbsp-nbsp-1-字数统计和阅读时长-网站底部-文章内-1"><a href="#nbsp-nbsp-1-字数统计和阅读时长-网站底部-文章内-1" class="headerlink" title="&nbsp;&nbsp;1.字数统计和阅读时长(网站底部/文章内)"></a>&nbsp;&nbsp;<a href="#2-1">1.字数统计和阅读时长(网站底部/文章内)</a></h4><h4 id="nbsp-nbsp-2-转换连接-1"><a href="#nbsp-nbsp-2-转换连接-1" class="headerlink" title="&nbsp;&nbsp;2.转换连接"></a>&nbsp;&nbsp;<a href="#2-2">2.转换连接</a></h4><h4 id="nbsp-nbsp-3-本地搜索-1"><a href="#nbsp-nbsp-3-本地搜索-1" class="headerlink" title="&nbsp;&nbsp;3.本地搜索"></a>&nbsp;&nbsp;<a href="#2-3">3.本地搜索</a></h4><h4 id="nbsp-nbsp-4-文章底部增加版权声明"><a href="#nbsp-nbsp-4-文章底部增加版权声明" class="headerlink" title="&nbsp;&nbsp;4.文章底部增加版权声明"></a>&nbsp;&nbsp;<a href="#2-4">4.文章底部增加版权声明</a></h4><span id="more"></span>
-<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="一、Http-2-0-特点"><a href="#一、Http-2-0-特点" class="headerlink" title="一、Http/2.0 特点"></a><a href="#1">一、Http/2.0 特点</a></h3><h4 id="nbsp-nbsp-1-安全"><a href="#nbsp-nbsp-1-安全" class="headerlink" title="&nbsp;&nbsp;1.安全"></a>&nbsp;&nbsp;<a href="#2-1">1.安全</a></h4><h4 id="nbsp-nbsp-2-高效"><a href="#nbsp-nbsp-2-高效" class="headerlink" title="&nbsp;&nbsp;2.高效"></a>&nbsp;&nbsp;<a href="#2-2">2.高效</a></h4><h4 id="nbsp-nbsp-3-兼容"><a href="#nbsp-nbsp-3-兼容" class="headerlink" title="&nbsp;&nbsp;3.兼容"></a>&nbsp;&nbsp;<a href="#2-3">3.兼容</a></h4><h3 id="二、Http-2-0优化"><a href="#二、Http-2-0优化" class="headerlink" title="二、Http/2.0优化"></a><a href="#2">二、Http/2.0优化</a></h3><h4 id="nbsp-nbsp-1-概念"><a href="#nbsp-nbsp-1-概念" class="headerlink" title="&nbsp;&nbsp;1.概念"></a>&nbsp;&nbsp;<a href="#2-1">1.概念</a></h4><h4 id="nbsp-nbsp-2-二进制分帧（Binary-Format）"><a href="#nbsp-nbsp-2-二进制分帧（Binary-Format）" class="headerlink" title="&nbsp;&nbsp;2.二进制分帧（Binary Format）"></a>&nbsp;&nbsp;<a href="#2-2">2.二进制分帧（Binary Format）</a></h4><h4 id="nbsp-nbsp-3-多路复用-Multiplexing-连接共享"><a href="#nbsp-nbsp-3-多路复用-Multiplexing-连接共享" class="headerlink" title="&nbsp;&nbsp;3.多路复用 (Multiplexing) / 连接共享"></a>&nbsp;&nbsp;<a href="#2-3">3.多路复用 (Multiplexing) / 连接共享</a></h4><h4 id="nbsp-nbsp-4-头部压缩（Header-Compression）"><a href="#nbsp-nbsp-4-头部压缩（Header-Compression）" class="headerlink" title="&nbsp;&nbsp;4.头部压缩（Header Compression）"></a>&nbsp;&nbsp;<a href="#2-4">4.头部压缩（Header Compression）</a></h4><h4 id="nbsp-nbsp-5-服务端推送（Server-Push）"><a href="#nbsp-nbsp-5-服务端推送（Server-Push）" class="headerlink" title="&nbsp;&nbsp;5.服务端推送（Server Push）"></a>&nbsp;&nbsp;<a href="#2-5">5.服务端推送（Server Push）</a></h4><h3 id="三、Http-2-0性能瓶颈"><a href="#三、Http-2-0性能瓶颈" class="headerlink" title="三、Http/2.0性能瓶颈"></a><a href="#3">三、Http/2.0性能瓶颈</a></h3><hr>
 <h1 id='1'>一、Http/2.0 特点</h1>
 <h2 id='1-1'>&nbsp;&nbsp;1.安全</h2>
 基于HTTPS协议
@@ -355,7 +353,7 @@ HTTP/2.0新的分帧机制可以不依赖多个TCP连接去实现多流并行，
 
 <p>启用HTTP/2.0后会给性能带来很大的提升，但同时也会带来新的性能瓶颈。因为现在所有的压力集中在底层一个TCP连接之上，TCP很可能就是下一个性能瓶颈，比如TCP分组的队首阻塞问题，单个TCP packet丢失导致整个连接阻塞，无法逃避，此时所有消息都会受到影响。未来，服务器端针对HTTP/2.0下的TCP配置优化至关重要。</p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#x39;&#x39;&#x34;&#64;&#x31;&#54;&#51;&#46;&#x63;&#x6f;&#109;">&#95;&#x31;&#x39;&#x39;&#x34;&#64;&#x31;&#54;&#51;&#46;&#x63;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#x39;&#52;&#64;&#x31;&#54;&#x33;&#46;&#99;&#x6f;&#x6d;">&#95;&#x31;&#57;&#x39;&#52;&#64;&#x31;&#54;&#x33;&#46;&#99;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>

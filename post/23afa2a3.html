@@ -14,8 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【iOS笔记】系列目录
-目录1、运行以下GCD多线程代码，控制台将打印什么?2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？3、为什么需要在主线程更新UI？4、iOS中如何用多线程实现多读单写?5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？">
+  <meta name="description" content="串行和并发与同步与异步，多读单写，线程顺序执行">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -250,15 +249,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、运行以下GCD多线程代码，控制台将打印什么"><a href="#1、运行以下GCD多线程代码，控制台将打印什么" class="headerlink" title="1、运行以下GCD多线程代码，控制台将打印什么?"></a><a href="#h3-1">1、运行以下GCD多线程代码，控制台将打印什么?</a></h3><h3 id="2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？"><a href="#2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？" class="headerlink" title="2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？"></a><a href="#h3-2">2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？</a></h3><h3 id="3、为什么需要在主线程更新UI？"><a href="#3、为什么需要在主线程更新UI？" class="headerlink" title="3、为什么需要在主线程更新UI？"></a><a href="#h3-3">3、为什么需要在主线程更新UI？</a></h3><h3 id="4、iOS中如何用多线程实现多读单写"><a href="#4、iOS中如何用多线程实现多读单写" class="headerlink" title="4、iOS中如何用多线程实现多读单写?"></a><a href="#h3-4">4、iOS中如何用多线程实现多读单写?</a></h3><h3 id="5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？"><a href="#5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？" class="headerlink" title="5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？"></a><a href="#h3-5">5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？</a></h3><span id="more"></span>
-
-<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、运行以下GCD多线程代码，控制台将打印什么"><a href="#1、运行以下GCD多线程代码，控制台将打印什么" class="headerlink" title="1、运行以下GCD多线程代码，控制台将打印什么?"></a><a href="#h3-1">1、运行以下GCD多线程代码，控制台将打印什么?</a></h3><h3 id="2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？"><a href="#2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？" class="headerlink" title="2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？"></a><a href="#h3-2">2、串行同步、串行异步、并发同步、并发异步各自会开几条线程？</a></h3><h3 id="3、为什么需要在主线程更新UI？"><a href="#3、为什么需要在主线程更新UI？" class="headerlink" title="3、为什么需要在主线程更新UI？"></a><a href="#h3-3">3、为什么需要在主线程更新UI？</a></h3><h3 id="4、iOS中如何用多线程实现多读单写"><a href="#4、iOS中如何用多线程实现多读单写" class="headerlink" title="4、iOS中如何用多线程实现多读单写?"></a><a href="#h3-4">4、iOS中如何用多线程实现多读单写?</a></h3><h3 id="5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？"><a href="#5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？" class="headerlink" title="5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？"></a><a href="#h3-5">5、iOS多线程中有多少种方式可以做到等待前面线程执行完毕再执行后面的线程？</a></h3><hr>
 <h3 id="h3-1">1、运行以下GCD多线程代码，控制台将打印什么?</h3>
 
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">dispatch_queue_t</span> gQueue= dispatch_get_global_queue(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>    <br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;1&quot;</span>);<br><span class="hljs-built_in">dispatch_sync</span>(gQueue, ^&#123;<br>    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;2&quot;</span>);<br>    <span class="hljs-built_in">dispatch_sync</span>(gQueue, ^&#123;<br>        <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;3&quot;</span>);<br>     &#125;);<br>    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;4&quot;</span>);<br>    &#125;);<br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;5&quot;</span>);<br></code></pre></td></tr></table></figure>

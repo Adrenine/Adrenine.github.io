@@ -14,8 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【iOS笔记】系列目录
-目录1、Runtime存在的意义是什么?2、根元类的isa指针指向谁?3、根元类的superClass指针指向谁？4、isa指针有几种类型？5、id、self、super 它们从语法上有什么区别？">
+  <meta name="description" content="isa的指向，类型与继承关系">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -250,15 +249,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 中午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、Runtime存在的意义是什么"><a href="#1、Runtime存在的意义是什么" class="headerlink" title="1、Runtime存在的意义是什么?"></a><a href="#h3-1">1、Runtime存在的意义是什么?</a></h3><h3 id="2、根元类的isa指针指向谁"><a href="#2、根元类的isa指针指向谁" class="headerlink" title="2、根元类的isa指针指向谁?"></a><a href="#h3-2">2、根元类的isa指针指向谁?</a></h3><h3 id="3、根元类的superClass指针指向谁？"><a href="#3、根元类的superClass指针指向谁？" class="headerlink" title="3、根元类的superClass指针指向谁？"></a><a href="#h3-3">3、根元类的superClass指针指向谁？</a></h3><h3 id="4、isa指针有几种类型？"><a href="#4、isa指针有几种类型？" class="headerlink" title="4、isa指针有几种类型？"></a><a href="#h3-4">4、isa指针有几种类型？</a></h3><h3 id="5、id、self、super-它们从语法上有什么区别？"><a href="#5、id、self、super-它们从语法上有什么区别？" class="headerlink" title="5、id、self、super 它们从语法上有什么区别？"></a><a href="#h3-5">5、id、self、super 它们从语法上有什么区别？</a></h3><span id="more"></span>
-
-<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1、Runtime存在的意义是什么"><a href="#1、Runtime存在的意义是什么" class="headerlink" title="1、Runtime存在的意义是什么?"></a><a href="#h3-1">1、Runtime存在的意义是什么?</a></h3><h3 id="2、根元类的isa指针指向谁"><a href="#2、根元类的isa指针指向谁" class="headerlink" title="2、根元类的isa指针指向谁?"></a><a href="#h3-2">2、根元类的isa指针指向谁?</a></h3><h3 id="3、根元类的superClass指针指向谁？"><a href="#3、根元类的superClass指针指向谁？" class="headerlink" title="3、根元类的superClass指针指向谁？"></a><a href="#h3-3">3、根元类的superClass指针指向谁？</a></h3><h3 id="4、isa指针有几种类型？"><a href="#4、isa指针有几种类型？" class="headerlink" title="4、isa指针有几种类型？"></a><a href="#h3-4">4、isa指针有几种类型？</a></h3><h3 id="5、id、self、super-它们从语法上有什么区别？"><a href="#5、id、self、super-它们从语法上有什么区别？" class="headerlink" title="5、id、self、super 它们从语法上有什么区别？"></a><a href="#h3-5">5、id、self、super 它们从语法上有什么区别？</a></h3><hr>
 <h3 id="h3-1">1、Runtime存在的意义是什么？</h3>
 答：Objective-C 是一门动态语言，它会将一些工作放在代码运行时才处理而并非编译时。也就是说，有很多类和成员变量在我们编译的时是不知道的，而在运行时，我们所编写的代码会转换成完整的确定的代码运行。因此，只有编译器是不够的，我们还需要一个运行时系统(Runtime system)来处理编译后的代码。
 这就是 Objective-C Runtime 系统存在的意义，它是整个Objc运行框架的一块基石。

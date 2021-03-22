@@ -14,11 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【主页】系列文章目录【iOS笔记】系列目录
-
-  自旋锁 不同于互斥锁 如果访问的资源被占用，它会处于 忙等 状态。自旋锁由于一直处于忙等状态所以他在线程锁被释放的时候会立即获取而不用唤醒，所以其执行效率是很高的，尤其是在多核的cpu上运行效率很高，但是其忙等的状态会消耗cpu的性能，所以其性能比互斥锁要低很多。
-  atomic 的底层实现，老版本是自旋锁，新版本是互斥锁。
-  atomic 并">
+  <meta name="description" content="Atomic与自旋锁">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -253,7 +249,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
@@ -264,13 +260,12 @@
 <li>  <code>atomic</code> 的底层实现，老版本是<code>自旋锁</code>，新版本是<code>互斥锁</code>。</li>
 <li>  <code>atomic</code> 并不是绝对线程安全，它能保证代码进入 <code>getter</code> 和 <code>setter</code> 方法的时候是安全的，但是并不能保证多线程的访问情况下是安全的，一旦出了 <code>getter</code> 和 <code>setter</code> 方法，其线程安全就要由程序员自己来把握，所以 <code>atomic</code> 属性和线程安全并没有必然联系。</li>
 </ul>
-<span id="more"></span>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs objc"><span class="hljs-keyword">@property</span> (atomic, <span class="hljs-keyword">assign</span>) <span class="hljs-built_in">NSInteger</span> number;  <br>  <br>- (<span class="hljs-keyword">void</span>)atomicTest &#123;  <br>    <span class="hljs-built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), ^&#123;  <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i ++) &#123;  <br>            <span class="hljs-keyword">self</span>.number = <span class="hljs-keyword">self</span>.number + <span class="hljs-number">1</span>;  <br>            <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;A-self.number is %ld&quot;</span>,<span class="hljs-keyword">self</span>.number);  <br>        &#125;  <br>    &#125;);  <br>  <br>    <span class="hljs-built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), ^&#123;  <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i ++) &#123;  <br>            <span class="hljs-keyword">self</span>.number = <span class="hljs-keyword">self</span>.number + <span class="hljs-number">1</span>;  <br>            <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;B-self.number is %ld&quot;</span>,<span class="hljs-keyword">self</span>.number);  <br>        &#125;  <br>    &#125;);  <br>&#125;<br><br></code></pre></td></tr></table></figure>
 
 <p>我们的 <code>number</code> 是 <code>atomic</code> 进行加锁了啊，为什么还会出现线程安全问题。其实答案上文已经有了，只是需要我们仔细去品，<code>atomic</code> 只是针对 <code>setter</code> 和 <code>getter</code> 方法进行加锁，上述代码有两个异步线程同时执行，如果某个时间 <code>A线程</code> 执行到<code>getter</code>方法，之后 <code>cpu</code> 立即切换到 <code>线程B</code> 去执行他的get方法那么这个时候他们进行 <code>+1</code> 的处理并执行<code>setter</code>方法，那么两个线程的 <code>number</code> 就会是一样的结果，这样我们的 <code>+1</code>就会出现线程安全问题，就会导致我们的数字出现偏差</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/6844904101981978637">链接</a></p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#49;&#x39;&#x39;&#x34;&#64;&#49;&#54;&#51;&#46;&#99;&#x6f;&#x6d;">&#95;&#49;&#x39;&#x39;&#x34;&#64;&#49;&#54;&#51;&#46;&#99;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#57;&#x34;&#64;&#49;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;">&#x5f;&#x31;&#57;&#57;&#x34;&#64;&#49;&#54;&#x33;&#x2e;&#x63;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -315,7 +310,7 @@
                     
                       <a href="/post/hjbvw26d.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">KVC</span>
+                        <span class="hidden-mobile">KVC存取流程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

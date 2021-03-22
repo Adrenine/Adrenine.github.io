@@ -14,8 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【靠谱程序员】系列目录
-问：风格纠错">
+  <meta name="description" content="代码规范、风格优化与纠错">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -250,20 +249,19 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h3 id="【靠谱程序员】系列目录"><a href="#【靠谱程序员】系列目录" class="headerlink" title="【靠谱程序员】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/10fb75fe.html">【靠谱程序员】系列目录</a></h3><hr>
 <h3 id="问：风格纠错"><a href="#问：风格纠错" class="headerlink" title="问：风格纠错"></a>问：风格纠错</h3><p><img src="https://i.loli.net/2020/06/01/Ug4OPqnSKxtNX85.png" srcset="/img/loading.gif" lazyload alt="风格纠错"></p>
-<span id="more"></span>
 <hr>
 <h3 id="答："><a href="#答：" class="headerlink" title="答："></a>答：</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">// 1.使用NS_ENUM而不是C语言类型的枚举enum</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-built_in">NS_ENUM</span>(<span class="hljs-built_in">NSInteget</span>, XBYGender) &#123; <span class="hljs-comment">//使用gender比sex正式</span><br>    XBYGenderMan,<br>    XBYGenderWoman<br>&#125;<br><br><span class="hljs-comment">// 2.一般定义一个初始化方法来对属性进行赋值，而把具体属性隐藏起来（放.m文件中），</span><br><span class="hljs-comment">// 或者设置为只读，不可外部修改（这里倾向于设置为只读）</span><br><br><span class="hljs-comment">// 3.NSString一般使用copy修饰</span><br><span class="hljs-keyword">@property</span>(<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *name;<br><br><span class="hljs-comment">// 4.和enum一样，尽量避免c语言的内容，将int改成NSInteger或者NSUInteger</span><br><span class="hljs-keyword">@property</span>(<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">assign</span>) <span class="hljs-built_in">NSUInteger</span> age;<br><span class="hljs-keyword">@property</span>(<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">assign</span>) XBYGender gender;<br><br><span class="hljs-comment">// 5.初始化一般是一个实例化方法一个工厂方法</span><br><span class="hljs-comment">// 6.初始化应该把属性都有对应的赋值</span><br><span class="hljs-comment">// 7/返回值一般用instancetype而不是id</span><br><br>+ (<span class="hljs-keyword">instancetype</span>)initWithUserName:(<span class="hljs-built_in">NSString</span> *)name age:(<span class="hljs-built_in">NSUInteger</span>)age gender:(XBYGender)genger;<br>- (<span class="hljs-keyword">instancetype</span>)initWithUserName:(<span class="hljs-built_in">NSString</span> *)name age:(<span class="hljs-built_in">NSUInteger</span>)age gender:(XBYGender)genger;<br><br><span class="hljs-comment">// 8.login本来就有动作的意思，不需要do</span><br>- (<span class="hljs-keyword">void</span>)login;<br></code></pre></td></tr></table></figure>
 
 
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#57;&#52;&#64;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#x5f;&#x31;&#57;&#57;&#52;&#64;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#x39;&#57;&#52;&#64;&#49;&#54;&#x33;&#x2e;&#99;&#111;&#x6d;">&#95;&#x31;&#x39;&#57;&#52;&#64;&#49;&#54;&#x33;&#x2e;&#99;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -312,7 +310,7 @@
                     
                       <a href="/post/f9d3oq4d.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">什么情况使用 weak 关键字，相比 assign 有什么不同？</span>
+                        <span class="hidden-mobile">weak与assign辨析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

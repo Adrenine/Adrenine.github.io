@@ -14,21 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【靠谱程序员】系列目录
-问：这个写法会出什么问题： 
-1@property (copy) NSMutableArray *array;
-答：
-(1）、copy修饰的属性进行赋值的时候会生成一份不可变的副本，此时修改副本array（增删之类的操作）会提示找不到方法而报异常；
-(2）、不写原子性修饰词默认使用atomic，而atomic性能比nonatomic差很多。
-
-
-扩展：
-浅拷贝
-不可变对象的">
+  <meta name="description" content="这个写法会出什么问题： @property (copy) NSMutableArray *array">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>这个写法会出什么问题： @property (copy) NSMutableArray *array - XieBangyao&#39;s Blog</title>
+  <title>深拷贝和浅拷贝与可变容器和不可变容器 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -185,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="这个写法会出什么问题： @property (copy) NSMutableArray *array">
+            <span class="h2" id="subtitle" title="深拷贝和浅拷贝与可变容器和不可变容器">
               
             </span>
 
@@ -255,11 +245,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">这个写法会出什么问题： @property (copy) NSMutableArray *array</h1>
+            <h1 style="display: none">深拷贝和浅拷贝与可变容器和不可变容器</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 下午
                 
               </p>
             
@@ -286,8 +276,6 @@
 <li><a href="#4-3">总结</a><h4 id='4-1'> 浅拷贝：指针拷贝，不生成新对象</h4>
 <h5 id='4-1-1'> 不可变对象的不可变拷贝</h5></li>
 </ul>
-<span id="more"></span>
-
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">NSArray</span> *array = [<span class="hljs-built_in">NSArray</span> array];<br><br><span class="hljs-comment">//相同地址        </span><br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%p&quot;</span>,array);<br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%p&quot;</span>,[array <span class="hljs-keyword">copy</span>]);<br><br><span class="hljs-comment">// __NSArray0 (不可变数组)      </span><br><span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%@&quot;</span>,<span class="hljs-built_in">NSStringFromClass</span>([[array <span class="hljs-keyword">copy</span>] <span class="hljs-keyword">class</span>]));<br></code></pre></td></tr></table></figure>
 <p>输出：<br><img src="https://i.loli.net/2019/04/12/5cb024c78c620.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
 <hr>
@@ -311,7 +299,7 @@
 <h4 id='4-2'> 总结</h4>
 
 <p><strong>除不可变对象的不可变拷贝为浅拷贝，其余都是深拷贝</strong><br><img src="https://i.loli.net/2019/04/12/5cb026d4b7035.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#49;&#57;&#x39;&#52;&#x40;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#109;">&#95;&#49;&#57;&#x39;&#52;&#x40;&#x31;&#54;&#x33;&#x2e;&#99;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#57;&#52;&#64;&#49;&#x36;&#x33;&#46;&#99;&#x6f;&#109;">&#x5f;&#49;&#x39;&#57;&#52;&#64;&#49;&#x36;&#x33;&#46;&#99;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -362,7 +350,7 @@
                     
                       <a href="/post/5fa0ub2h.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span>
+                        <span class="hidden-mobile">给自己的类加上copy与重写带copy的setter</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

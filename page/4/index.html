@@ -209,11 +209,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一、performSelector
-非阻塞
-主线程执行(子线程不启动runloop的话不会执行)1[self performSelector:@selector(delayMethods) withObject:nil afterDelay:1.0];
-执行之前可取消123[NSObject cancelPreviousPerformRequestsWi
+          iOS延迟执行的几种方式：NSTimer、performSelector、sleep与GCD
         </a>
       </p>
 
@@ -269,9 +265,7 @@
           
             
           
-          【主页】系列文章目录【iOS错误与警告】系列目录
-问题iPad提交报错“iPad Multitasking support requires launch story board in bundle ”
-1234ERROR ITMS-90474: &quot;Invalid Bundle. iPad Multitasking support requires theseorientations: 
+          ERROR ITMS-90475 Invalid Bundle. iPad Multitasking support requires launch story board in bundle xxxx.
         </a>
       </p>
 
@@ -327,12 +321,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一 常见多线程实现（一）pthread（1）特点
-1）一套通用的多线程API  
-2）适用于Unix/Linux/Windows等系统  
-3）跨平台可移植  
-4）使用难度大  （2）使用语言C语言（3）使用频率几乎不用  （4）线程生命周期由程序员进行管理（5）概念、属性与方法略
+          多线程的几种实现：pthread、NSThread、GCD与NSOperation
         </a>
       </p>
 
@@ -388,10 +377,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一、文字控件自适应大小（一）、实现效果：左边控件长度可被挤压，右边控件完全展示。当左边控件长度过长时，进行挤压，保证右边控件能完全展示。
-效果如下图：
-
+          iOS基于控件内容大小进行自适应大小布局
         </a>
       </p>
 
@@ -445,10 +431,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-1、UIEdgeInsetsMake介绍首先简单介绍一下UIEdgeInsetsMake引用：UIEdgeInsetsMake使用详解的图片和讲解，再加上自己的理解与实现
-先看定义
-123typedef struct UIEdgeInsets &#123;  CGFloat top, left, bottom, right; // specify amo
+          UIButton image与title进行位置与间距调整
         </a>
       </p>
 
@@ -488,14 +471,14 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/post/db79nmkl.html" target="_blank">
-          <img src="/img/index10.jpg" srcset="/img/loading.gif" lazyload alt="class与objc_getClass方法">
+          <img src="/img/index10.jpg" srcset="/img/loading.gif" lazyload alt="class()与objc_getClass()方法">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/post/db79nmkl.html">class与objc_getClass方法</a>
+        <a href="/post/db79nmkl.html">class()与objc_getClass()方法</a>
       </h1>
 
       <p class="index-excerpt">
@@ -504,9 +487,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-前言开发过程中，我们有时候需要获取当前屏幕显示的最顶层的ViewController，然后操作这个ViewController实现一些功能，比如加个加载圈，提示框之类的。
-思路通过最底层的ViewController依次向上寻找，直到找到最顶层的ViewController，也就是从UIApplication的keyWindow的rootViewCont
+          class()与objc_getClass()方法辨析
         </a>
       </p>
 
@@ -560,9 +541,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-1.写在前面：前段时间项目用到了类似新闻类客户端顶部的滚动条，虽然网上也有很多，但是本着锻炼自己的想法，自己动手写了一个，所幸效果不差，遂分享出来，一方面给大家参考，一方面也给自己记录。
-上效果图：
+          新闻类App常见的顶部滑动效果实现
         </a>
       </p>
 
@@ -618,8 +597,7 @@
           
             
           
-          【主页】系列文章目录&nbsp;&nbsp;【iOS Sharing】系列目录&nbsp;&nbsp;【iOS笔记】系列目录&nbsp;&nbsp;【靠谱程序员】系列目录&nbsp;&nbsp;【iOS警告与报错】系列目录&nbsp;&nbsp;【开发笔记】系列目录&nbsp;&nbsp;【Leet Code】系列目录&nbsp;&nbsp;【Coding】系列目录
-【靠谱程序员】系列目录]&nb
+          目录
         </a>
       </p>
 
@@ -675,9 +653,7 @@
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-简单说明数组排序比较多，我们讲一种比较常用的，这里涉及到一个知识点：NSComparisonResult：
-12345typedef enum NSComparisonResult : NSInteger &#123;    NSOrderedAscending = -1L,    NSOrderedSame,    NSOrderedDescendin
+          iOS排序以及对象数组基于对象的某个属性进行排序
         </a>
       </p>
 
@@ -733,8 +709,7 @@
           
             
           
-          【主页】系列文章目录【LeetCode】系列目录
-Q：Given an array of integers, return indices of the two numbers such that they add up to a specific target.12345678You may assume that each input would have exactly one soluti
+          LeetCode 1: Two Sum
         </a>
       </p>
 

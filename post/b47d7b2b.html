@@ -14,8 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【iOS笔记】系列目录
-目录1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？2. NSUserDefaults 没有存储 key 的时候默认返回什么？3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?4. NSUserDefaults 旧数据总能被新设置的替换吗？5. NSUserDef">
+  <meta name="description" content="NSUserDefaults可存储的类型以及存取操作，如何保持数据一致性">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -250,15 +249,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h2><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-NSUserDefaults-能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？"><a href="#1-NSUserDefaults-能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？" class="headerlink" title="1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？"></a><a href="#h3-1">1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？</a></h3><h3 id="2-NSUserDefaults-没有存储-key-的时候默认返回什么？"><a href="#2-NSUserDefaults-没有存储-key-的时候默认返回什么？" class="headerlink" title="2. NSUserDefaults 没有存储 key 的时候默认返回什么？"></a><a href="#h3-2">2. NSUserDefaults 没有存储 key 的时候默认返回什么？</a></h3><h3 id="3-NSUserDefaults-存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的"><a href="#3-NSUserDefaults-存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的" class="headerlink" title="3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?"></a><a href="#h3-3">3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?</a></h3><h3 id="4-NSUserDefaults-旧数据总能被新设置的替换吗？"><a href="#4-NSUserDefaults-旧数据总能被新设置的替换吗？" class="headerlink" title="4. NSUserDefaults 旧数据总能被新设置的替换吗？"></a><a href="#h3-4">4. NSUserDefaults 旧数据总能被新设置的替换吗？</a></h3><h3 id="5-NSUserDefaults-性能如何"><a href="#5-NSUserDefaults-性能如何" class="headerlink" title="5. NSUserDefaults 性能如何?"></a><a href="#h3-5">5. NSUserDefaults 性能如何?</a></h3><span id="more"></span>
-
-<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-NSUserDefaults-能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？"><a href="#1-NSUserDefaults-能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？" class="headerlink" title="1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？"></a><a href="#h3-1">1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？</a></h3><h3 id="2-NSUserDefaults-没有存储-key-的时候默认返回什么？"><a href="#2-NSUserDefaults-没有存储-key-的时候默认返回什么？" class="headerlink" title="2. NSUserDefaults 没有存储 key 的时候默认返回什么？"></a><a href="#h3-2">2. NSUserDefaults 没有存储 key 的时候默认返回什么？</a></h3><h3 id="3-NSUserDefaults-存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的"><a href="#3-NSUserDefaults-存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的" class="headerlink" title="3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?"></a><a href="#h3-3">3. NSUserDefaults 存取操作是什么？它将数据存在何处？并且它是如何保持数据一致性的?</a></h3><h3 id="4-NSUserDefaults-旧数据总能被新设置的替换吗？"><a href="#4-NSUserDefaults-旧数据总能被新设置的替换吗？" class="headerlink" title="4. NSUserDefaults 旧数据总能被新设置的替换吗？"></a><a href="#h3-4">4. NSUserDefaults 旧数据总能被新设置的替换吗？</a></h3><h3 id="5-NSUserDefaults-性能如何"><a href="#5-NSUserDefaults-性能如何" class="headerlink" title="5. NSUserDefaults 性能如何?"></a><a href="#h3-5">5. NSUserDefaults 性能如何?</a></h3><hr>
 <h3 id="h3-1">1. NSUserDefaults 能够存储哪些类型的数据？可以存储可变数据类型吗？可以存储自定义数据类型吗？</h3>
 
 <h3 id="（1）可存储的数据类型"><a href="#（1）可存储的数据类型" class="headerlink" title="（1）可存储的数据类型"></a>（1）可存储的数据类型</h3><ul>
@@ -320,7 +317,7 @@
 <p>从性能上分析, 缓存的机制带来了一定的性能提升, 通过一些网上的文章了解到在10万个key的情况下, 通过<code>NSUserDefaults</code>来读取value是1ms级别的, 然而当你从plist文件中直接读取, 需要100ms的级别开销, 但是写是个相反的结果, 要是你写1个10万条数据到plist文件中是1s级别的开销，而同时写入10万条<code>NSUserDefaults</code>键值对则需要10s级别的延迟. 我们都知道在创建key/value时, 程序需要在内存中也创建一个相应的映射关系, 然后系统会时不时调用<code>synchronsize</code>方法同步数据, 很多的方法会导致创建key/value pair被阻塞</p>
 <p>总的来说, 使用<code>NSUserDefaults</code>是比较高效的, 但是不能大量的将数据通过 NSUserDefaults 中</p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#57;&#x34;&#x40;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#109;">&#x5f;&#49;&#x39;&#57;&#x34;&#x40;&#49;&#x36;&#51;&#x2e;&#99;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#57;&#x39;&#52;&#64;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#x5f;&#49;&#57;&#x39;&#52;&#64;&#49;&#x36;&#x33;&#x2e;&#x63;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>

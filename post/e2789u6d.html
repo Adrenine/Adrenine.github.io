@@ -14,7 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【主页】系列文章目录【iOS笔记】系列目录">
+  <meta name="description" content="SEL的使用与原理简单介绍">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -249,20 +249,20 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h3><span id="more"></span>
-
-<hr>
+              <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h3><hr>
 <h3 id="一-概念"><a href="#一-概念" class="headerlink" title="一 概念"></a>一 概念</h3><ul>
 <li><strong>SEL</strong><br>方法名（编号）</li>
 <li><strong>IMP</strong><br>一个函数指针,保存了方法的地址</li>
-<li><strong>@selector(方法名)</strong><br>获取方法的编号，结果是SEL类型。他的行为基本可以等同于C语言中的函数指针<!--more-->
-<h3 id="二-区别"><a href="#二-区别" class="headerlink" title="二 区别"></a>二 区别</h3>  C语言中，可以直接把函数名赋值给一个函数指针，而且函数指针直接保存了函数地址<br>  Objc中的类不能直接应用函数指针，只能使用@selector来获取，获取的是方法的编号</li>
+<li><strong>@selector(方法名)</strong><br>获取方法的编号，结果是SEL类型。他的行为基本可以等同于C语言中的函数指针</li>
 </ul>
+<h3 id="二-区别"><a href="#二-区别" class="headerlink" title="二 区别"></a>二 区别</h3><pre><code>C语言中，可以直接把函数名赋值给一个函数指针，而且函数指针直接保存了函数地址
+Objc中的类不能直接应用函数指针，只能使用@selector来获取，获取的是方法的编号
+</code></pre>
 <h3 id="三-原理"><a href="#三-原理" class="headerlink" title="三 原理"></a>三 原理</h3><p>方法以@selector作为索引，@selector的数据类型是SEL，对应每个方法的编号，当我们寻找方法的时候使用的是这个方法编号。类中存在一个methodLists专门用来存放方法实现IMP和SEL的映射。方法编号SEL通过Dispatch table表寻找到对应的IMP，IMP就是一个函数指针，然后执行这个方法。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">objc_class</span> &#123;</span><br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">objc_class</span> <span class="hljs-title">super_class</span>;</span>  <span class="hljs-comment">/*父类*/</span><br><br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name;                 <span class="hljs-comment">/*类名字*/</span><br><br>    <span class="hljs-keyword">long</span> version;                   <span class="hljs-comment">/*版本信息*/</span><br><br>    <span class="hljs-keyword">long</span> info;                        <span class="hljs-comment">/*类信息*/</span><br><br>    <span class="hljs-keyword">long</span> instance_size;               <span class="hljs-comment">/*实例大小*/</span><br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">objc_ivar_list</span> *<span class="hljs-title">ivars</span>;</span>     <span class="hljs-comment">/*实例参数链表*/</span><br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">objc_method_list</span> **<span class="hljs-title">methodLists</span>;</span>  <span class="hljs-comment">/*方法链表*/</span><br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">objc_cache</span> *<span class="hljs-title">cache</span>;</span>               <span class="hljs-comment">/*方法缓存*/</span><br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">objc_protocol_list</span> *<span class="hljs-title">protocols</span>;</span>   <span class="hljs-comment">/*协议链表*/</span><br><br>&#125;;<br><br></code></pre></td></tr></table></figure>
 
@@ -270,7 +270,7 @@
 
 <h3 id="四-相关"><a href="#四-相关" class="headerlink" title="四 相关"></a>四 相关</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">class</span>   返回对象的类；<br><br><span class="hljs-symbol">isKindOfClass</span> 和 <span class="hljs-symbol">isMemberOfClass</span>检查对象是否在指定的类继承体系中；<br><br><span class="hljs-symbol">respondsToSelector</span> 检查对象能否相应指定的消息；<br><br><span class="hljs-symbol">conformsToProtocol</span> 检查对象是否实现了指定协议类的方法；<br><br><span class="hljs-symbol">methodForSelector</span>  返回指定方法实现的地址。<br><br><span class="hljs-symbol">performSelector:<span class="hljs-symbol">withObject</span></span> 执行<span class="hljs-symbol">SEL</span> 所指代的方法。<br><br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#49;&#x39;&#57;&#x34;&#64;&#x31;&#x36;&#x33;&#46;&#x63;&#x6f;&#x6d;">&#95;&#49;&#x39;&#57;&#x34;&#64;&#x31;&#x36;&#x33;&#46;&#x63;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#57;&#x39;&#52;&#x40;&#x31;&#54;&#x33;&#46;&#99;&#111;&#109;">&#x5f;&#49;&#57;&#x39;&#52;&#x40;&#x31;&#54;&#x33;&#46;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -324,7 +324,7 @@
                     
                     
                       <a href="/post/ghj7e26d.html">
-                        <span class="hidden-mobile">weak与unsafe_unretain</span>
+                        <span class="hidden-mobile">Weak与unsafe_unretain</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

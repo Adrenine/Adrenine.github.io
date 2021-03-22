@@ -14,14 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【靠谱程序员】系列目录
-问：@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？
-答：1、@property 的本质1@property = ivar + getter + setter
-翻译出来就是：属性（property）= 实例变量（ivar）+ 存取方法（getter和setter）实例变量用于存储数据存取方法用来读取写入该实例变量的数据（">
+  <meta name="description" content="property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？ - XieBangyao&#39;s Blog</title>
+  <title>属性、成员变量与存取方法 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -178,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？">
+            <span class="h2" id="subtitle" title="属性、成员变量与存取方法">
               
             </span>
 
@@ -248,11 +245,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</h1>
+            <h1 style="display: none">属性、成员变量与存取方法</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
@@ -261,8 +258,6 @@
 <h3 id="问："><a href="#问：" class="headerlink" title="问："></a>问：</h3><p>@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的？</p>
 <h3 id="答："><a href="#答：" class="headerlink" title="答："></a>答：</h3><h4 id="1、-property-的本质"><a href="#1、-property-的本质" class="headerlink" title="1、@property 的本质"></a>1、@property 的本质</h4><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-keyword">@property</span> = ivar + <span class="hljs-keyword">getter</span> + <span class="hljs-keyword">setter</span><br></code></pre></td></tr></table></figure>
 <p>翻译出来就是：<br>属性（property）= 实例变量（ivar）+ 存取方法（getter和setter）<br>实例变量用于存储数据<br>存取方法用来读取写入该实例变量的数据<br>（有swift开发经验的人对这个感触应该表较深（存储属性和计算属性））<br>编译器会自动为@property添加实例变量和存取方法，当你重写存取方法中的一个的时候不用手动写实例变量：<code>@synthesize name = _name;</code>，但是当你同时重写setter和getter方法时，你需要添加这行代码才能通过编译。</p>
-<span id="more"></span>
-
 <hr>
 <h4 id="2、ivar、getter、setter-是如何生成并添加到这个类中的？"><a href="#2、ivar、getter、setter-是如何生成并添加到这个类中的？" class="headerlink" title="2、ivar、getter、setter 是如何生成并添加到这个类中的？"></a>2、ivar、getter、setter 是如何生成并添加到这个类中的？</h4><p>“自动合成”( autosynthesis)<br>完成属性定义后，编译器会自动编写访问这些属性所需的方法，此过程叫做“自动合成”(autosynthesis)。需要强调的是，这个过程由编译 器在编译期执行，所以编辑器里看不到这些“合成方法”(synthesized method)的源代码。除了生成方法代码 getter、setter 之外，编译器还要自动向类中添加适当类型的实例变量，并且在属性名前面加下划线，以此作为实例变量的名字。在前例中，会生成两个实例变量，其名称分别为 _firstName 与 _lastName。也可以在类的实现代码里通过 @synthesize 语法来指定实例变量的名字。</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">Person</span></span><br><span class="hljs-keyword">@synthesize</span> firstName = _myFirstName;<br><span class="hljs-keyword">@synthesize</span> lastName = _myLastName;<br><span class="hljs-keyword">@end</span><br></code></pre></td></tr></table></figure>
@@ -385,7 +380,7 @@
 </tr>
 </tbody></table>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#x39;&#52;&#64;&#x31;&#54;&#51;&#46;&#99;&#111;&#109;">&#x5f;&#x31;&#57;&#x39;&#52;&#64;&#x31;&#54;&#51;&#46;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#57;&#x34;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;">&#x5f;&#x31;&#57;&#57;&#x34;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -432,7 +427,7 @@
                     
                       <a href="/post/4a8q20e0.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在@protocol 和 category 中如何使用 @property</span>
+                        <span class="hidden-mobile">Protocol与Category</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -441,7 +436,7 @@
                     
                     
                       <a href="/post/5fa0ub2h.html">
-                        <span class="hidden-mobile">如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span>
+                        <span class="hidden-mobile">给自己的类加上copy与重写带copy的setter</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

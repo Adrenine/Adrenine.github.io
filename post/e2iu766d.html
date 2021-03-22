@@ -14,12 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【主页】系列文章目录【iOS笔记】系列目录
-一 iOS消息推送流程
-1.由App向iOS设备发送一个注册通知，用户需要同意系统发送推送
-2.iOS应用向APNS远程推送服务器发送App的Bundle Id和Device UUID
-3.APNS根据设备的UUID和App的Bundle Id生成deviceToken再发回App
-4.App再将deviceToken发送给远程推送服务器（自己的服务器）">
+  <meta name="description" content="iOS远程推送流程介绍">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -254,7 +249,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
@@ -266,7 +261,7 @@
 <li>3.APNS根据设备的UUID和App的Bundle Id生成deviceToken再发回App</li>
 <li>4.App再将deviceToken发送给远程推送服务器（自己的服务器），再由服务器保存到数据库中</li>
 <li>5.当自己的服务器想发送推送时，在远程推送服务器中输入想发送的消息并选择发给哪些用户的deviceToken，由远程推送服务器发送给APNS</li>
-<li>6.APNS根据deviceToken发送给对应的用户<span id="more"></span>
+<li>6.APNS根据deviceToken发送给对应的用户<!-- more -->
 <h3 id="二-相关代码"><a href="#二-相关代码" class="headerlink" title="二 相关代码"></a>二 相关代码</h3></li>
 </ul>
 <h4 id="1-获取DeviceToken"><a href="#1-获取DeviceToken" class="headerlink" title="1.获取DeviceToken"></a>1.获取DeviceToken</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objc">- (<span class="hljs-built_in">BOOL</span>)application:(<span class="hljs-built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="hljs-built_in">NSDictionary</span> *)launchOptions<br>&#123;<br>    <span class="hljs-comment">// do some initiale working</span><br>    ...<br>    <br>    [application registerForRemoteNotificationTypes:<span class="hljs-built_in">UIRemoteNotificationTypeBadge</span> | <span class="hljs-built_in">UIRemoteNotificationTypeAlert</span> | <span class="hljs-built_in">UIRemoteNotificationTypeSound</span>];<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -278,7 +273,7 @@
 
 <h4 id="3-处理小红点"><a href="#3-处理小红点" class="headerlink" title="3.处理小红点"></a>3.处理小红点</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objc">- (<span class="hljs-keyword">void</span>)applicationDidEnterBackground:(<span class="hljs-built_in">UIApplication</span> *)application &#123;<br>    <span class="hljs-comment">//设置应用程序图片右上角的数字(如果想要取消右上角的数字, 直接把这个参数值为0) </span><br>    [[<span class="hljs-built_in">UIApplication</span> sharedApplication] setApplicationIconBadgeNumber:<span class="hljs-number">0</span>];<br>&#125;<br><br>- (<span class="hljs-keyword">void</span>)applicationWillEnterForeground:(<span class="hljs-built_in">UIApplication</span> *)application &#123;<br>    [[<span class="hljs-built_in">UIApplication</span> sharedApplication] setApplicationIconBadgeNumber:<span class="hljs-number">0</span>];<br>&#125;<br></code></pre></td></tr></table></figure>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#57;&#52;&#x40;&#x31;&#x36;&#x33;&#46;&#x63;&#x6f;&#109;">&#x5f;&#49;&#x39;&#57;&#52;&#x40;&#x31;&#x36;&#x33;&#46;&#x63;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#x39;&#x39;&#x34;&#64;&#49;&#x36;&#51;&#46;&#99;&#x6f;&#x6d;">&#95;&#x31;&#x39;&#x39;&#x34;&#64;&#49;&#x36;&#51;&#46;&#99;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>

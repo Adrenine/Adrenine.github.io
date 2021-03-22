@@ -14,12 +14,11 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【iOS笔记】系列目录
-目录1. block的循环引用是如何造成的？2. 使用UIAnimation的block回调时，需不需要使用__weak避免循环引用？为什么？3. block属性是否可以用strong修饰？4. 什么场景下才需要对变量使用__block?5. block 修改捕获变量除了用 __block 还可以怎么做？有哪些局限性？">
+  <meta name="description" content="Block循环引用以及避免，block的修饰词">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>【iOS Sharing】block相关 - XieBangyao&#39;s Blog</title>
+  <title>【iOS Sharing】Block相关 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -176,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【iOS Sharing】block相关">
+            <span class="h2" id="subtitle" title="【iOS Sharing】Block相关">
               
             </span>
 
@@ -246,19 +245,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【iOS Sharing】block相关</h1>
+            <h1 style="display: none">【iOS Sharing】Block相关</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <h3 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h3><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-block的循环引用是如何造成的？"><a href="#1-block的循环引用是如何造成的？" class="headerlink" title="1. block的循环引用是如何造成的？"></a><a href="#h3-1">1. block的循环引用是如何造成的？</a></h3><h3 id="2-使用UIAnimation的block回调时，需不需要使用-weak避免循环引用？为什么？"><a href="#2-使用UIAnimation的block回调时，需不需要使用-weak避免循环引用？为什么？" class="headerlink" title="2. 使用UIAnimation的block回调时，需不需要使用__weak避免循环引用？为什么？"></a><a href="#h3-2">2. 使用UIAnimation的block回调时，需不需要使用__weak避免循环引用？为什么？</a></h3><h3 id="3-block属性是否可以用strong修饰？"><a href="#3-block属性是否可以用strong修饰？" class="headerlink" title="3. block属性是否可以用strong修饰？"></a><a href="#h3-3">3. block属性是否可以用strong修饰？</a></h3><h3 id="4-什么场景下才需要对变量使用-block"><a href="#4-什么场景下才需要对变量使用-block" class="headerlink" title="4. 什么场景下才需要对变量使用__block?"></a><a href="#h3-4">4. 什么场景下才需要对变量使用__block?</a></h3><h3 id="5-block-修改捕获变量除了用-block-还可以怎么做？有哪些局限性？"><a href="#5-block-修改捕获变量除了用-block-还可以怎么做？有哪些局限性？" class="headerlink" title="5. block 修改捕获变量除了用 __block 还可以怎么做？有哪些局限性？"></a><a href="#h3-5">5. block 修改捕获变量除了用 __block 还可以怎么做？有哪些局限性？</a></h3><span id="more"></span>
-
-<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-block的循环引用是如何造成的？"><a href="#1-block的循环引用是如何造成的？" class="headerlink" title="1. block的循环引用是如何造成的？"></a><a href="#h3-1">1. block的循环引用是如何造成的？</a></h3><h3 id="2-使用UIAnimation的block回调时，需不需要使用-weak避免循环引用？为什么？"><a href="#2-使用UIAnimation的block回调时，需不需要使用-weak避免循环引用？为什么？" class="headerlink" title="2. 使用UIAnimation的block回调时，需不需要使用__weak避免循环引用？为什么？"></a><a href="#h3-2">2. 使用UIAnimation的block回调时，需不需要使用__weak避免循环引用？为什么？</a></h3><h3 id="3-block属性是否可以用strong修饰？"><a href="#3-block属性是否可以用strong修饰？" class="headerlink" title="3. block属性是否可以用strong修饰？"></a><a href="#h3-3">3. block属性是否可以用strong修饰？</a></h3><h3 id="4-什么场景下才需要对变量使用-block"><a href="#4-什么场景下才需要对变量使用-block" class="headerlink" title="4. 什么场景下才需要对变量使用__block?"></a><a href="#h3-4">4. 什么场景下才需要对变量使用__block?</a></h3><h3 id="5-block-修改捕获变量除了用-block-还可以怎么做？有哪些局限性？"><a href="#5-block-修改捕获变量除了用-block-还可以怎么做？有哪些局限性？" class="headerlink" title="5. block 修改捕获变量除了用 __block 还可以怎么做？有哪些局限性？"></a><a href="#h3-5">5. block 修改捕获变量除了用 __block 还可以怎么做？有哪些局限性？</a></h3><hr>
 <h3 id="h3-1">1. block的循环引用是如何造成的？</h3>
 
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">------------Light.h------------<br><span class="hljs-meta">#import <span class="hljs-meta-string">&lt;Foundation/Foundation.h&gt;</span></span><br><span class="hljs-class"><span class="hljs-keyword">@interface</span> <span class="hljs-title">Light</span> : <span class="hljs-title">NSObject</span></span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *color;<br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-keyword">void</span> (^block)(<span class="hljs-keyword">void</span>);<br><span class="hljs-keyword">@end</span><br><br>------------Light.m------------<br><span class="hljs-meta">#import <span class="hljs-meta-string">&quot;Light.h&quot;</span></span><br><span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">Light</span></span><br><span class="hljs-keyword">@end</span><br><br>------------main.m------------<br><span class="hljs-meta">#import <span class="hljs-meta-string">&quot;Light.h&quot;</span></span><br><br><span class="hljs-keyword">int</span> main(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> * argv[]) &#123;<br>    <span class="hljs-keyword">@autoreleasepool</span> &#123;<br>        Light *loveLight = [Light alloc] init];<br>        loveLight.color = <span class="hljs-string">@&quot;green&quot;</span>;<br>        <br>        loveLight.block = ^&#123;<br>            <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;%@&quot;</span>,loveLight.color);<br>        &#125;;<br>        <br>        loveLight.block();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -314,7 +311,7 @@
 </ul>
 <p><code>__block</code> 修饰的局部变量会随着 block 销毁而销毁，内存管理与 block 同步，全局/局部静态/全局静态，存在于程序的整个生命周期，成员变量的生命周期由其类控制</p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#x39;&#x39;&#52;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;">&#x5f;&#x31;&#x39;&#x39;&#52;&#x40;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#57;&#57;&#x34;&#64;&#49;&#54;&#x33;&#46;&#x63;&#x6f;&#x6d;">&#x5f;&#49;&#57;&#57;&#x34;&#64;&#49;&#54;&#x33;&#46;&#x63;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>

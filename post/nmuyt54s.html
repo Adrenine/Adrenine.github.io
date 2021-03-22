@@ -14,9 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【主页】系列文章目录【iOS错误与警告】系列目录
-Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &amp;#x27;&amp;#x27;
-原因使用[UIImage imageNamed:@&amp;quot;&amp;quot;]初始化了一个UIImage">
+  <meta name="description" content="CUICatalog Invalid asset name supplied (null)">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -251,7 +249,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &amp;#x27;&amp;
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
@@ -259,11 +257,10 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &amp;#x27;&amp;
               <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【iOS错误与警告】系列目录"><a href="#【iOS错误与警告】系列目录" class="headerlink" title="【iOS错误与警告】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/e2m9iu6d.html">【iOS错误与警告】系列目录</a></h3><hr>
 <h3 id="Xcode警告"><a href="#Xcode警告" class="headerlink" title="Xcode警告"></a>Xcode警告</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp">[<span class="hljs-meta">framework</span>] CUICatalog: Invalid asset name supplied: <span class="hljs-string">&#x27;&#x27;</span><br></code></pre></td></tr></table></figure>
 <h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>使用<code>[UIImage imageNamed:@&quot;&quot;]</code>初始化了一个UIImage</p>
-<span id="more"></span>
 <h3 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h3><p>使用Symbolic Breakpoint<br><img src="https://user-gold-cdn.xitu.io/2020/7/15/173506366c4fb0d2?w=908&h=398&f=png&s=333032" srcset="/img/loading.gif" lazyload alt="image.png"><br>Symbol处填写<code>[UIImage imageNamed:]</code></br><br>Condition处填写<code>[(NSString *)$arg3 length] == 0</code>，如果是检测nil，此处填写<code>$arg3 == nil</code></p>
 <p>运行以后，断点就会停在name为@””的地方。</p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#57;&#52;&#x40;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#x6d;">&#95;&#x31;&#57;&#57;&#52;&#x40;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#x39;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;">&#x5f;&#49;&#x39;&#x39;&#52;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -317,7 +314,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &amp;#x27;&amp;
                     
                     
                       <a href="/post/hjbvw26d.html">
-                        <span class="hidden-mobile">KVC</span>
+                        <span class="hidden-mobile">KVC存取流程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

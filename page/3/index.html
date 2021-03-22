@@ -209,9 +209,7 @@
           
             
           
-          【主页】系列文章目录【iOS错误与警告】系列目录
-Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
-原因使用[UIImage imageNamed:@&quot;&quot;]初始化了一个UIImage
+          CUICatalog Invalid asset name supplied (null)
         </a>
       </p>
 
@@ -251,14 +249,14 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/post/hjbvw26d.html" target="_blank">
-          <img src="/img/index5.jpg" srcset="/img/loading.gif" lazyload alt="KVC">
+          <img src="/img/index5.jpg" srcset="/img/loading.gif" lazyload alt="KVC存取流程">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/post/hjbvw26d.html">KVC</a>
+        <a href="/post/hjbvw26d.html">KVC存取流程</a>
       </h1>
 
       <p class="index-excerpt">
@@ -267,9 +265,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一 Getter12- (nullable id)valueForKey:(NSString *)key;                          //直接通过Key来取值- (nullable id)valueForKeyPath:(NSString *)keyPath;                  //通过KeyPath来取值
-
+          KVC存取的流程
         </a>
       </p>
 
@@ -325,11 +321,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-
-  自旋锁 不同于互斥锁 如果访问的资源被占用，它会处于 忙等 状态。自旋锁由于一直处于忙等状态所以他在线程锁被释放的时候会立即获取而不用唤醒，所以其执行效率是很高的，尤其是在多核的cpu上运行效率很高，但是其忙等的状态会消耗cpu的性能，所以其性能比互斥锁要低很多。
-  atomic 的底层实现，老版本是自旋锁，新版本是互斥锁。
-  atomic 并
+          Atomic与自旋锁
         </a>
       </p>
 
@@ -385,8 +377,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一 自旋锁是一种用于保护多线程共享资源的锁，与一般互斥锁（mutex）不同之处在于当自旋锁尝试获取锁时以忙等待（busy waiting）的形式不断地循环检查锁是否可用。当上一个线程的任务没有执行完毕的时候（被锁住），那么下一个线程会一直等待（不会睡眠），当上一个线程的任务执行完毕，下一个线程会立即执行。在多CPU的环境中，对持有锁较短的程序来说，使用自
+          iOS自旋锁、互斥锁与递归锁简单介绍
         </a>
       </p>
 
@@ -442,12 +433,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一 iOS消息推送流程
-1.由App向iOS设备发送一个注册通知，用户需要同意系统发送推送
-2.iOS应用向APNS远程推送服务器发送App的Bundle Id和Device UUID
-3.APNS根据设备的UUID和App的Bundle Id生成deviceToken再发回App
-4.App再将deviceToken发送给远程推送服务器（自己的服务器）
+          iOS远程推送流程介绍
         </a>
       </p>
 
@@ -503,7 +489,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
+          SEL的使用与原理简单介绍
         </a>
       </p>
 
@@ -543,14 +529,14 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/post/ghj7e26d.html" target="_blank">
-          <img src="/img/index6.jpg" srcset="/img/loading.gif" lazyload alt="weak与unsafe_unretain">
+          <img src="/img/index6.jpg" srcset="/img/loading.gif" lazyload alt="Weak与unsafe_unretain">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/post/ghj7e26d.html">weak与unsafe_unretain</a>
+        <a href="/post/ghj7e26d.html">Weak与unsafe_unretain</a>
       </h1>
 
       <p class="index-excerpt">
@@ -559,10 +545,7 @@ Xcode警告1[framework] CUICatalog: Invalid asset name supplied: &#x27;&#x27;
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-
-weak修饰的指针变量，在指向的内存地址销毁后，会在Runtime的机制下，自动置为nil。
-_Unsafe_Unretain不会置为nil，容易出现悬垂指针，发生崩溃。但是_Unsafe_Unretain比__weak效率高。
+          weak与unsafe_unretain辨析
         </a>
       </p>
 
@@ -618,8 +601,7 @@ _Unsafe_Unretain不会置为nil，容易出现悬垂指针，发生崩溃。但�
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455- (void)testClassISA &#123;id b1 = [NSObject class];id b2 = [NSObject c
+          isKindOfClass与isMemberOfClass辨析
         </a>
       </p>
 
@@ -675,9 +657,7 @@ _Unsafe_Unretain不会置为nil，容易出现悬垂指针，发生崩溃。但�
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-以下代码来自AFNetworking 2.x
-1234567891011121314151617181920+ (void)networkRequestThreadEntryPoint:(id)__unused object &#123;    @autoreleasepool &#123;        [[NSThread currentThread
+          AFNetworing 2.x常驻线程实现
         </a>
       </p>
 
@@ -733,10 +713,7 @@ _Unsafe_Unretain不会置为nil，容易出现悬垂指针，发生崩溃。但�
           
             
           
-          【主页】系列文章目录【iOS笔记】系列目录
-一、官方图片
-
-
+          SDWebImage流程简要分析
         </a>
       </p>
 

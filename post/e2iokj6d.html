@@ -14,8 +14,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="【主页】系列文章目录【iOS笔记】系列目录
-一 自旋锁是一种用于保护多线程共享资源的锁，与一般互斥锁（mutex）不同之处在于当自旋锁尝试获取锁时以忙等待（busy waiting）的形式不断地循环检查锁是否可用。当上一个线程的任务没有执行完毕的时候（被锁住），那么下一个线程会一直等待（不会睡眠），当上一个线程的任务执行完毕，下一个线程会立即执行。在多CPU的环境中，对持有锁较短的程序来说，使用自">
+  <meta name="description" content="iOS自旋锁、互斥锁与递归锁简单介绍">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
@@ -250,7 +249,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月20日 上午
+                  本文最后更新于：2021年3月22日 晚上
                 
               </p>
             
@@ -258,7 +257,6 @@
               <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h3><hr>
 <h3 id="一-自旋锁"><a href="#一-自旋锁" class="headerlink" title="一 自旋锁"></a>一 自旋锁</h3><p>是一种用于保护多线程共享资源的锁，与一般互斥锁（mutex）不同之处在于当自旋锁尝试获取锁时以忙等待（busy waiting）的形式不断地循环检查锁是否可用。当上一个线程的任务没有执行完毕的时候（被锁住），那么下一个线程会一直等待（不会睡眠），当上一个线程的任务执行完毕，下一个线程会立即执行。<br>在多CPU的环境中，对持有锁较短的程序来说，使用自旋锁代替一般的互斥锁往往能够提高程序的性能。<br><strong>优点</strong><br>自旋锁不会引起调用者睡眠，所以不会进行线程调度，CPU时间片轮转等耗时操作。所有如果能在很短的时间内获得锁，自旋锁的效率远高于互斥锁。<br><strong>缺点</strong><br>自旋锁一直占用CPU，他在未获得锁的情况下，一直运行－－自旋，所以占用着CPU，如果不能在很短的时间内获得锁，这无疑会使CPU效率降低。</p>
 <p><strong>小结</strong><br>效率高，但是耗费资源，不能实现递归调用。  </p>
-<span id="more"></span>
 <h3 id="二-互斥锁"><a href="#二-互斥锁" class="headerlink" title="二 互斥锁"></a>二 互斥锁</h3><p>当上一个线程的任务没有执行完毕的时候（被锁住），那么下一个线程会进入睡眠状态等待任务执行完毕，当上一个线程的任务执行完毕，下一个线程会自动唤醒然后执行任务。</p>
 <h3 id="三-递归锁"><a href="#三-递归锁" class="headerlink" title="三 递归锁"></a>三 递归锁</h3><p>递归锁允许同一个线程在未释放其拥有的锁时反复对该锁进行加锁操作。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// _lock = [[NSRecursiveLock alloc] init]; // pthread_mutex_t可替换成NSRecursiveLock</span><br><br><span class="hljs-keyword">static</span> <span class="hljs-keyword">pthread_mutex_t</span> pLock;<br><span class="hljs-keyword">pthread_mutexattr_t</span> attr;<br>pthread_mutexattr_init(&amp;attr); <span class="hljs-comment">//初始化attr并且给它赋予默认</span><br>pthread_mutexattr_settype(&amp;attr, PTHREAD_MUTEX_RECURSIVE); <span class="hljs-comment">//设置锁类型，这边是设置为递归锁</span><br>pthread_mutex_init(&amp;pLock, &amp;attr);<br>pthread_mutexattr_destroy(&amp;attr); <span class="hljs-comment">//销毁一个属性对象，在重新进行初始化之前该结构不能重新使用</span><br><br><span class="hljs-comment">//1.线程1</span><br>dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="hljs-number">0</span>), ^&#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> (^RecursiveBlock)(<span class="hljs-keyword">int</span>);<br>    RecursiveBlock = ^(<span class="hljs-keyword">int</span> value) &#123;<br><span class="hljs-comment">//        [_lock lock];</span><br>        pthread_mutex_lock(&amp;pLock);<br>        <span class="hljs-keyword">if</span> (value &gt; <span class="hljs-number">0</span>) &#123;<br>            NSLog(@<span class="hljs-string">&quot;value: %d&quot;</span>, value);<br>            RecursiveBlock(value - <span class="hljs-number">1</span>);<br>        &#125;<br><span class="hljs-comment">//        [_lock unlock];</span><br>        pthread_mutex_unlock(&amp;pLock);<br>    &#125;;<br>    RecursiveBlock(<span class="hljs-number">5</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
@@ -288,7 +286,7 @@
 <h3 id="六-常见锁的性能"><a href="#六-常见锁的性能" class="headerlink" title="六 常见锁的性能"></a>六 常见锁的性能</h3><p><img src="https://i.loli.net/2020/09/08/vTCife7cUSqdnzx.png" srcset="/img/loading.gif" lazyload alt="image.png"><br>图片来源<a target="_blank" rel="noopener" href="https://blog.ibireme.com/">@ibireme</a></p>
 <h3 id="七-常见锁的使用"><a href="#七-常见锁的使用" class="headerlink" title="七 常见锁的使用"></a>七 常见锁的使用</h3><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/33b608903488">iOS中常见的10种锁</a></p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#x39;&#52;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;">&#x5f;&#x31;&#57;&#x39;&#52;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#57;&#52;&#64;&#49;&#54;&#51;&#46;&#x63;&#x6f;&#x6d;">&#x5f;&#49;&#x39;&#57;&#52;&#64;&#49;&#54;&#51;&#46;&#x63;&#x6f;&#x6d;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
