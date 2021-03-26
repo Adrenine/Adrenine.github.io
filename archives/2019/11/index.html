@@ -14,29 +14,13 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="iOS内存管理">
+  <meta name="description" content="最怕一生碌碌无为却道平凡难能可贵！">
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>iOS内存管理 - XieBangyao&#39;s Blog</title>
+  <title>归档 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
 
 
 
@@ -64,7 +48,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -175,54 +159,9 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="iOS内存管理">
+            <span class="h2" id="subtitle" title="归档">
               
             </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2017-11-03 22:35" pubdate>
-        2017年11月3日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      158 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      1
-       分钟
-    </span>
-  
-
-  
-  
-    
-      <!-- 不蒜子统计文章PV -->
-      <span id="busuanzi_container_page_pv" style="display: none">
-        <i class="iconfont icon-eye" aria-hidden="true"></i>
-        <span id="busuanzi_value_page_pv"></span> 次
-      </span>
-    
-  
-</div>
 
             
           </div>
@@ -235,129 +174,46 @@
 
   <main>
     
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="list-group">
+  <p class="h4">共计 64 篇文章</p>
+  <hr>
+  
+  
+    
       
+      <p class="h5">2019</p>
+    
+    <a href="/post/jiuyode7.html" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">iOS常用代码（二）</span>
+      <time style="float: right;">11-20</time>
+    </a>
+  
+    
+    <a href="/post/6dqtyde7.html" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">iOS常用代码（一）</span>
+      <time style="float: right;">11-09</time>
+    </a>
+  
+</div>
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">iOS内存管理</h1>
-            
-              <p class="note note-info">
-                
-                  本文最后更新于：2021年3月22日 晚上
-                
-              </p>
-            
-            <div class="markdown-body">
-              <h3 id="【主页】系列文章目录"><a href="#【主页】系列文章目录" class="headerlink" title="【主页】系列文章目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/main.html">【主页】系列文章目录</a></h3><h3 id="【iOS笔记】系列目录"><a href="#【iOS笔记】系列目录" class="headerlink" title="【iOS笔记】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/hjk78f6d.html">【iOS笔记】系列目录</a></h3><hr>
-<h3 id="1-weak的实现原理-SideTable的结构是什么样的"><a href="#1-weak的实现原理-SideTable的结构是什么样的" class="headerlink" title="1.weak的实现原理? SideTable的结构是什么样的"></a>1.weak的实现原理? SideTable的结构是什么样的</h3><h3 id="2-关联对象的应用-系统如何实现关联对象的"><a href="#2-关联对象的应用-系统如何实现关联对象的" class="headerlink" title="2.关联对象的应用?系统如何实现关联对象的"></a>2.关联对象的应用?系统如何实现关联对象的</h3><h3 id="3-关联对象的如何进行內存管理的-关联对象如何实现weak属性"><a href="#3-关联对象的如何进行內存管理的-关联对象如何实现weak属性" class="headerlink" title="3.关联对象的如何进行內存管理的?关联对象如何实现weak属性"></a>3.关联对象的如何进行內存管理的?关联对象如何实现weak属性</h3><h3 id="4-Autoreleasepoo-l的原理-所使用的的数据结构是什么"><a href="#4-Autoreleasepoo-l的原理-所使用的的数据结构是什么" class="headerlink" title="4. Autoreleasepoo l的原理?所使用的的数据结构是什么"></a>4. Autoreleasepoo l的原理?所使用的的数据结构是什么</h3><h3 id="5-ARC的实现原理-ARC下对-retain-amp-release做了哪些优化"><a href="#5-ARC的实现原理-ARC下对-retain-amp-release做了哪些优化" class="headerlink" title="5.ARC的实现原理?ARC下对 retain&amp; release做了哪些优化"></a>5.ARC的实现原理?ARC下对 retain&amp; release做了哪些优化</h3><h3 id="6-ARC下哪些情况会造成内存泄漏"><a href="#6-ARC下哪些情况会造成内存泄漏" class="headerlink" title="6.ARC下哪些情况会造成内存泄漏"></a>6.ARC下哪些情况会造成内存泄漏</h3><hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#x39;&#52;&#64;&#49;&#54;&#x33;&#x2e;&#99;&#x6f;&#109;">&#x5f;&#x31;&#57;&#x39;&#52;&#64;&#49;&#54;&#x33;&#x2e;&#99;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
-<li><a target="_blank" rel="noopener" href="https://adrenine.github.io/">Blog - Adrenine</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/Adrenine">Github - Adrenine</a></li>
-</ul>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/iOS%E7%AC%94%E8%AE%B0/">iOS笔记</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/iOS%E7%AC%94%E8%AE%B0/">iOS笔记</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
-                    
-                  </div>
-                
+
+
+
               </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/post/f829ea4b.html">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">代码风格优化与纠错</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/post/nmuyt54s.html">
-                        <span class="hidden-mobile">CUICatalog Invalid asset name supplied</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
             </div>
-
-            
-              <!-- Comments -->
-              <article class="comments" id="comments" lazyload>
-                
-                  
-                
-                
-  <div id="lv-container" data-id="city" data-uid="MTAyMC80MTc4Ni8xODMzMg==">
-    <script type="text/javascript">
-      Fluid.utils.lazyComments('lv-container', function() {
-        Fluid.utils.createScript('https://cdn-city.livere.com/js/embed.dist.js');
-      });
-    </script>
-    <noscript>为正常使用来必力评论功能请允许 JavaScript 运行</noscript>
-  </div>
-
-
-              </article>
-            
-          </article>
+          </div>
         </div>
       </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
     
 
     
@@ -462,15 +318,9 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
