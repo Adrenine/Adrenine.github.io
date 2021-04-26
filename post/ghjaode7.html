@@ -197,7 +197,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      149 字
+      570 字
     </span>
   
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      7
        分钟
     </span>
   
@@ -249,25 +249,70 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月8日 晚上
+                  本文最后更新于：2021年4月26日 下午
                 
               </p>
             
             <div class="markdown-body">
               <h2 id="【Coding】系列目录"><a href="#【Coding】系列目录" class="headerlink" title="【Coding】系列目录"></a><a target="_blank" rel="noopener" href="https://adrenine.github.io/post/ab23a973.html">【Coding】系列目录</a></h2><hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-加载xib"><a href="#1-加载xib" class="headerlink" title="1. 加载xib"></a><a href="#h3-1">1. 加载xib</a></h3><h3 id="2-剪切板读写"><a href="#2-剪切板读写" class="headerlink" title="2. 剪切板读写"></a><a href="#h3-2">2. 剪切板读写</a></h3><h3 id="3-获取渐变颜色图片"><a href="#3-获取渐变颜色图片" class="headerlink" title="3. 获取渐变颜色图片"></a><a href="#h3-3">3. 获取渐变颜色图片</a></h3><h3 id="4-图片合成文字"><a href="#4-图片合成文字" class="headerlink" title="4. 图片合成文字"></a><a href="#h3-4">4. 图片合成文字</a></h3><h3 id="5-合成图片"><a href="#5-合成图片" class="headerlink" title="5. 合成图片"></a><a href="#h3-5">5. 合成图片</a></h3><hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><h3 id="1-加载xib"><a href="#1-加载xib" class="headerlink" title="1. 加载xib"></a><a href="#h3-1">1. 加载xib</a></h3><h3 id="2-xib控件等间距排列"><a href="#2-xib控件等间距排列" class="headerlink" title="2. xib控件等间距排列"></a><a href="#h3-2">2. xib控件等间距排列</a></h3><h4 id="emsp-emsp-（1）xib约束"><a href="#emsp-emsp-（1）xib约束" class="headerlink" title="&emsp;&emsp;（1）xib约束"></a>&emsp;&emsp;<a href="#h3-2-1">（1）xib约束</a></h4><h4 id="emsp-emsp-（2）Stack-View"><a href="#emsp-emsp-（2）Stack-View" class="headerlink" title="&emsp;&emsp;（2）Stack View"></a>&emsp;&emsp;<a href="#h3-2-2">（2）Stack View</a></h4><h4 id="emsp-emsp-（3）Masonry函数"><a href="#emsp-emsp-（3）Masonry函数" class="headerlink" title="&emsp;&emsp;（3）Masonry函数"></a>&emsp;&emsp;<a href="#h3-2-3">（3）Masonry函数</a></h4><h3 id="3-剪切板读写"><a href="#3-剪切板读写" class="headerlink" title="3. 剪切板读写"></a><a href="#h3-3">3. 剪切板读写</a></h3><h3 id="4-UILabel和UIButton自适应宽度"><a href="#4-UILabel和UIButton自适应宽度" class="headerlink" title="4. UILabel和UIButton自适应宽度"></a><a href="#h3-4">4. UILabel和UIButton自适应宽度</a></h3><h4 id="emsp-emsp-（1）字体大小确定宽度自适应"><a href="#emsp-emsp-（1）字体大小确定宽度自适应" class="headerlink" title="&emsp;&emsp;（1）字体大小确定宽度自适应"></a>&emsp;&emsp;<a href="#h3-4-1">（1）字体大小确定宽度自适应</a></h4><h4 id="emsp-emsp-（2）宽度确定字体大小自适应"><a href="#emsp-emsp-（2）宽度确定字体大小自适应" class="headerlink" title="&emsp;&emsp;（2）宽度确定字体大小自适应"></a>&emsp;&emsp;<a href="#h3-4-2">（2）宽度确定字体大小自适应</a></h4><hr>
 <h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><h3 id="h3-1"> 1. 加载xib</h3>
 
 <p>iOS中相关API中大凡参数需要传bundle，当我们设置为nil时，默认情况下就是访问mainBundle。</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-comment">// 方法1</span><br><span class="hljs-built_in">UIView</span> *view1 = [[[<span class="hljs-built_in">NSBundle</span> mainBundle] loadNibNamed:<span class="hljs-string">@&quot;XibName&quot;</span> owner:<span class="hljs-literal">nil</span> options:<span class="hljs-literal">nil</span>] lastObject];<br><br><span class="hljs-comment">// 方法2</span><br><span class="hljs-built_in">UIView</span> *view2 = [[[<span class="hljs-built_in">UINib</span> nibWithNibName:<span class="hljs-string">@&quot;XibName&quot;</span> bundle:<span class="hljs-literal">nil</span>] instantiateWithOwner:<span class="hljs-literal">nil</span> options:<span class="hljs-literal">nil</span>] lastObject];<br></code></pre></td></tr></table></figure>
 
-<h3 id="h3-2"> 2. 剪切板读写</h3>
-* 读
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIPasteboard</span> *pasteboard = [<span class="hljs-built_in">UIPasteboard</span> generalPasteboard];<br><span class="hljs-built_in">NSString</span> *info = pasteboard.string;<br></code></pre></td></tr></table></figure>
+<h3 id="h3-2"> 2. xib控件等间距排列</h3>
+
+<h4 id="h3-2-1"> （1）xib约束</h3>
+
+<p><strong>下面两个操作顺序不能更换</strong></p>
+<ul>
+<li>先拉控件间距等宽</li>
+<li>再拉控件宽度相等</li>
+</ul>
+<p><img src="https://i.loli.net/2021/04/21/cS5WdZArtxUYswq.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="h3-2-2"> （2）Stack View</h4>
+
+<p><strong>Stack View需要内部控件支撑其宽高</strong></p>
+<h5 id="h3-2-2-1"> （a）等宽等间距</h5>
 
 <ul>
-<li>写<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIPasteboard</span> *pasteboard = [<span class="hljs-built_in">UIPasteboard</span> generalPasteboard];<br>pasteboard.string = <span class="hljs-string">@&quot;xxx&quot;</span>;<br></code></pre></td></tr></table></figure></li>
+<li><p>拖入子控件<br><img src="https://i.loli.net/2021/04/21/UPX2DryGm64RLYO.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+</li>
+<li><p>设置Strack View属性<br><img src="https://i.loli.net/2021/04/21/LTQaufiWjZI7lbG.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+</li>
 </ul>
+<h5 id="h3-2-2-1"> （b）等间距不等宽</h5>
+
+<ul>
+<li><p>拖入子控件<br><img src="https://i.loli.net/2021/04/21/6gtmFyrxcQfD24X.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+</li>
+<li><p>设置Strack View属性（此时spacing无效）<br><img src="https://i.loli.net/2021/04/21/HO2mxfh1XzWjGwU.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+</li>
+</ul>
+<h4 id="h3-2-3"> （3）Masonry函数</h3>
+
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">[<span class="hljs-keyword">self</span>.view addSubview:<span class="hljs-keyword">self</span>.button1];<br>[<span class="hljs-keyword">self</span>.view addSubview:<span class="hljs-keyword">self</span>.button2];<br>[<span class="hljs-keyword">self</span>.view addSubview:<span class="hljs-keyword">self</span>.button3];<br>[<span class="hljs-keyword">self</span>.view addSubview:<span class="hljs-keyword">self</span>.button4];<br><br><span class="hljs-comment">//将控件添加到一个数组里面</span><br><span class="hljs-built_in">NSArray</span> *array = @[<span class="hljs-keyword">self</span>.button1,<span class="hljs-keyword">self</span>.button2,<span class="hljs-keyword">self</span>.button3,<span class="hljs-keyword">self</span>.button4]; <br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">使用方法，一次性配置：横向布局，控件间距15，第一个控件与父容器间距10，</span><br><span class="hljs-comment">最后一个控件与父容器间距10</span><br><span class="hljs-comment">*/</span><br>[array mas_distributeViewsAlongAxis:MASAxisTypeHorizontal <br>withFixedSpacing:<span class="hljs-number">15</span> leadSpacing:<span class="hljs-number">10</span> tailSpacing:<span class="hljs-number">10</span>];  <br><br><span class="hljs-comment">//设置单个view的大小，在父view的与需要平分的方向的垂直方向的位置，例如需要在水平方向平分，就给一个竖直方向的位置</span><br>[array mas_makeConstraints:^(MASConstraintMaker *make) &#123;<br>  make.top.equalTo(<span class="hljs-keyword">self</span>.view); <span class="hljs-comment">//或者make.centerY.equalTo(self.view);</span><br>  make.height.equalTo(@<span class="hljs-number">75</span>);<br>&#125;];<br></code></pre></td></tr></table></figure>
+<h3 id="h3-3"> 3. 剪切板读写</h3>
+
+<ul>
+<li><p>读</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIPasteboard</span> *pasteboard = [<span class="hljs-built_in">UIPasteboard</span> generalPasteboard];<br><span class="hljs-built_in">NSString</span> *info = pasteboard.string;<br></code></pre></td></tr></table></figure></li>
+<li><p>写</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UIPasteboard</span> *pasteboard = [<span class="hljs-built_in">UIPasteboard</span> generalPasteboard];<br>pasteboard.string = <span class="hljs-string">@&quot;xxx&quot;</span>;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="h3-4"> 4.  UILabel和UIButton自适应宽度</h3>
+
+<h4 id="h3-4-1">（1）字体大小确定宽度自适应</h4>
+
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UILabel</span> *label = [[<span class="hljs-built_in">UILabel</span> alloc initWithFrame:<span class="hljs-built_in">CGRectMake</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">30</span>, <span class="hljs-number">30</span>)];<br>label.font = [<span class="hljs-built_in">UIFont</span> systemFontOfSize:<span class="hljs-number">15</span>];<br>label.text = <span class="hljs-string">@&quot;自适应宽度&quot;</span>;<br>[label sizeToFit];<span class="hljs-comment">//注意和上面一句代码顺序不能颠倒</span><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="h3-4-2">（2）宽度确定字体大小自适应</h4>
+
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs objectivec"><span class="hljs-built_in">UILabel</span> *label = [[<span class="hljs-built_in">UILabel</span> alloc]initWithFrame:<span class="hljs-built_in">CGRectMake</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">30</span>, <span class="hljs-number">30</span>)];<br>label.font = [<span class="hljs-built_in">UIFont</span> systemFontOfSize:<span class="hljs-number">15</span>];<br>label.text = <span class="hljs-string">@&quot;自适应宽度&quot;</span>;<br>label.adjustsFontSizeToFitWidth = <span class="hljs-literal">YES</span>;<br></code></pre></td></tr></table></figure>
+<p>button处理方式</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs objectivec">[button.titleLabel sizeToFit];<br>button.titleLabel.adjustsFontSizeToFitWidth = <span class="hljs-literal">YES</span>;<br></code></pre></td></tr></table></figure>
+
 <h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><p><strong>邮箱：</strong> adrenine@163.com</br></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
