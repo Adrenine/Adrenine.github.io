@@ -249,7 +249,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月13日 上午
+                  本文最后更新于：2021年5月10日 下午
                 
               </p>
             
@@ -278,13 +278,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">Host github<br>HostName github.com<br>User git<br>PreferredAuthentications publickey<br><span class="hljs-comment">#下面填写的是私钥名，没有pub后缀</span><br>IdentityFile ~/.ssh/id_github_rsa<br><br>Host gitlab<br>HostName gitlab.com<br>User git<br>PreferredAuthentications publickey<br>IdentityFile ~/.ssh/id_gitlab_rsa <br></code></pre></td></tr></table></figure>
 
 <h3 id='6'>6.将专有密钥添加到 ssh-agent 中</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add ~./ssh/id_github_rsa<br>ssh-add ~./ssh/id_gitlab_rsa<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add ~/.ssh/id_github_rsa<br>ssh-add ~/.ssh/id_gitlab_rsa<br></code></pre></td></tr></table></figure>
 
 <p><strong>tips:</strong> </br></p>
 <p>把专有密钥添加到 ssh-agent 中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add ~./ssh/id_rsa<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add ~/.ssh/id_rsa<br></code></pre></td></tr></table></figure>
 <p>从 ssh-agent 中删除密钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add -d ./ssh/id_rsa.pub<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add -d ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure>
 <p>查看 ssh-agent 中的密钥</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-add -l<br></code></pre></td></tr></table></figure>
 
@@ -306,7 +306,7 @@ GitLab:
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> git@github.com:XXX/demo.git<br>git <span class="hljs-built_in">clone</span> git@gitlab.com:XXX/demo.git<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#x39;&#x39;&#x34;&#64;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;">&#95;&#x31;&#x39;&#x39;&#x34;&#64;&#49;&#54;&#x33;&#46;&#x63;&#111;&#x6d;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#49;&#x39;&#57;&#52;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;">&#x5f;&#49;&#x39;&#57;&#52;&#64;&#49;&#x36;&#x33;&#x2e;&#99;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
