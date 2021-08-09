@@ -18,7 +18,7 @@
   <meta name="author" content="XieBangyao">
   <meta name="keywords" content="">
   
-  <title>多线程 - XieBangyao&#39;s Blog</title>
+  <title>【12】多线程【iOS笔记】 - XieBangyao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="多线程">
+            <span class="h2" id="subtitle" title="【12】多线程【iOS笔记】">
               
             </span>
 
@@ -207,7 +207,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      41
        分钟
     </span>
   
@@ -245,11 +245,11 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">多线程</h1>
+            <h1 style="display: none">【12】多线程【iOS笔记】</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月22日 晚上
+                  本文最后更新于：2021年8月9日 下午
                 
               </p>
             
@@ -262,7 +262,7 @@
 <li>4）使用难度大  <h4 id="（2）使用语言"><a href="#（2）使用语言" class="headerlink" title="（2）使用语言"></a>（2）使用语言</h4>C语言<h4 id="（3）使用频率"><a href="#（3）使用频率" class="headerlink" title="（3）使用频率"></a>（3）使用频率</h4>几乎不用  <h4 id="（4）线程生命周期"><a href="#（4）线程生命周期" class="headerlink" title="（4）线程生命周期"></a>（4）线程生命周期</h4>由程序员进行管理<h4 id="（5）概念、属性与方法"><a href="#（5）概念、属性与方法" class="headerlink" title="（5）概念、属性与方法"></a>（5）概念、属性与方法</h4>略<!-- more -->
 <h3 id="（二）NSThread"><a href="#（二）NSThread" class="headerlink" title="（二）NSThread"></a>（二）NSThread</h3><h4 id="（1）特点-1"><a href="#（1）特点-1" class="headerlink" title="（1）特点"></a>（1）特点</h4></li>
 <li>1）使用更加面向对象  </li>
-<li>2）简单易用，可直接操作线程对象  <h4 id="（2）使用语言-1"><a href="#（2）使用语言-1" class="headerlink" title="（2）使用语言"></a>（2）使用语言</h4>OC<h4 id="（3）使用频率-1"><a href="#（3）使用频率-1" class="headerlink" title="（3）使用频率"></a>（3）使用频率</h4>偶尔使用 <h4 id="（4）线程生命周期-1"><a href="#（4）线程生命周期-1" class="headerlink" title="（4）线程生命周期"></a>（4）线程生命周期</h4>由程序员进行管理<h4 id="（5）概念、属性与方法-1"><a href="#（5）概念、属性与方法-1" class="headerlink" title="（5）概念、属性与方法"></a>（5）概念、属性与方法</h4><h5 id="1）创建线程"><a href="#1）创建线程" class="headerlink" title="1）创建线程:"></a>1）创建线程:</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs objc"><span class="hljs-comment">// 实例化线程需要手动启动才能运行，手动调用[newThread start];</span><br><span class="hljs-built_in">NSThread</span> *newThread = [[<span class="hljs-built_in">NSThread</span> alloc] initWithTarget:<span class="hljs-keyword">self</span> selector:<span class="hljs-keyword">@selector</span>(demo:) object:<span class="hljs-string">@&quot;Thread&quot;</span>];<br><span class="hljs-comment">//或</span><br><span class="hljs-built_in">NSThread</span> *newThread= [[<span class="hljs-built_in">NSThread</span> alloc] init];<br><span class="hljs-comment">//或</span><br><span class="hljs-built_in">NSThread</span> *newThread= [[<span class="hljs-built_in">NSThread</span> alloc] initWithBlock:^&#123;<br>    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;initWithBlock&quot;</span>);<br>&#125;];<br></code></pre></td></tr></table></figure>
+<li>2）简单易用，可直接操作线程对象  <h4 id="（2）使用语言-1"><a href="#（2）使用语言-1" class="headerlink" title="（2）使用语言"></a>（2）使用语言</h4>OC<h4 id="（3）使用频率-1"><a href="#（3）使用频率-1" class="headerlink" title="（3）使用频率"></a>（3）使用频率</h4>偶尔使用 <h4 id="（4）线程生命周期-1"><a href="#（4）线程生命周期-1" class="headerlink" title="（4）线程生命周期"></a>（4）线程生命周期</h4>由程序员进行管理<h4 id="（5）概念、属性与方法-1"><a href="#（5）概念、属性与方法-1" class="headerlink" title="（5）概念、属性与方法"></a>（5）概念、属性与方法</h4><h5 id="1）创建线程"><a href="#1）创建线程" class="headerlink" title="1）创建线程:"></a>1）创建线程:</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs objc"><span class="hljs-comment">// 实例化线程需要手动启动才能运行，手动调用[newThread start];</span><br><span class="hljs-built_in">NSThread</span> *newThread = [[<span class="hljs-built_in">NSThread</span> alloc] initWithTarget:<span class="hljs-keyword">self</span> selector:<span class="hljs-keyword">@selector</span>(demo:) object:<span class="hljs-string">@&quot;Thread&quot;</span>];<br><span class="hljs-comment">//或</span><br><span class="hljs-built_in">NSThread</span> *newThread= [[<span class="hljs-built_in">NSThread</span> alloc] init];<br><span class="hljs-comment">//或</span><br><span class="hljs-built_in">NSThread</span> *newThread= [[<span class="hljs-built_in">NSThread</span> alloc] initWithBlock:^&#123;<br>    <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@&quot;initWithBlock&quot;</span>);<br>&#125;];<br><span class="hljs-comment">//启动</span><br>[newThread start];<br><br><span class="hljs-comment">// 通过构造器开辟子线程，不需要手动启动</span><br>[<span class="hljs-built_in">NSThread</span> detachNewThreadSelector:<span class="hljs-keyword">@selector</span>(testThread:) toTarget:<span class="hljs-keyword">self</span> withObject:<span class="hljs-string">@&quot;构造器方式&quot;</span>];<br></code></pre></td></tr></table></figure>
 <h5 id="2）常用属性"><a href="#2）常用属性" class="headerlink" title="2）常用属性"></a>2）常用属性</h5></li>
 </ul>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs objc"><br><span class="hljs-comment">/// a.线程字典</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">每个线程都维护了一个&lt;键-值&gt;的字典，它可以在线程里面的任何地方被访问。你可以使用该字典来保存一些信息，这些信息在整个线程的执行过程中都保持不变。</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">retain</span>) <span class="hljs-built_in">NSMutableDictionary</span> *threadDictionary;<br><br><span class="hljs-comment">/// b.优先级</span><br><span class="hljs-keyword">@property</span> <span class="hljs-keyword">double</span> threadPriority;<br><br><span class="hljs-comment">/// c.线程优先级</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">  NSQualityOfServiceUserInteractive：最高优先级,主要用于提供交互UI的操作,比如处理点击事件,绘制图像到屏幕上</span><br><span class="hljs-comment">  NSQualityOfServiceUserInitiated：次高优先级，主要用于执行需要立即返回的任务</span><br><span class="hljs-comment">  NSQualityOfServiceDefault：默认优先级，当没有设置优先级的时候，线程默认优先级</span><br><span class="hljs-comment">  NSQualityOfServiceUtility：普通优先级，主要用于不需要立即返回的任务</span><br><span class="hljs-comment">  NSQualityOfServiceBackground：后台优先级，用于完全不紧急的任务</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">@property</span> <span class="hljs-built_in">NSQualityOfService</span> qualityOfService; <br><br><span class="hljs-comment">/// d.线程名称</span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nullable</span>, <span class="hljs-keyword">copy</span>) <span class="hljs-built_in">NSString</span> *name;<br><br><span class="hljs-comment">/// e.线程分配的栈的大小（子线程默认512k，主线程1M）</span><br><span class="hljs-keyword">@property</span> <span class="hljs-built_in">NSUInteger</span> stackSize ;<br><br><span class="hljs-comment">/// f.是否在执行</span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">getter</span>=isExecuting) <span class="hljs-built_in">BOOL</span> executing;<br><br><span class="hljs-comment">/// g.是否已完成</span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">getter</span>=isFinished) <span class="hljs-built_in">BOOL</span> finished;<br><br><span class="hljs-comment">/// h.是否被取消</span><br><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">readonly</span>, <span class="hljs-keyword">getter</span>=isCancelled) <span class="hljs-built_in">BOOL</span> cancelled;<br></code></pre></td></tr></table></figure>
@@ -354,7 +354,7 @@ c.自定义继承自 NSOperation 的子类，通过实现内部相应的方法�
 </ul>
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/686dbf4bbb52">NSThread</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/2d57c72016c6">GCD</a></p>
 <hr>
-<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#95;&#x31;&#57;&#x39;&#52;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#109;">&#95;&#x31;&#57;&#x39;&#52;&#x40;&#49;&#54;&#x33;&#46;&#x63;&#111;&#109;</a></br><br><strong>相关账号：</strong></p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><p><strong>邮箱：</strong> xiebangyao<a href="mailto:&#x5f;&#x31;&#57;&#57;&#52;&#x40;&#x31;&#x36;&#x33;&#x2e;&#x63;&#x6f;&#109;">&#x5f;&#x31;&#57;&#57;&#52;&#x40;&#x31;&#x36;&#x33;&#x2e;&#x63;&#x6f;&#109;</a></br><br><strong>相关账号：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/user/57c39bfb79bc440063e5ad44">掘金 - Adrenine</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/u/b20be2dcb0c3">简书 - Adrenine</a></li>
@@ -399,7 +399,7 @@ c.自定义继承自 NSOperation 的子类，通过实现内部相应的方法�
                     
                       <a href="/post/emn1h26d.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">iPad Multitasking support requires xxx</span>
+                        <span class="hidden-mobile">【1】iPad Multitasking support requires xxx【错误与警告】</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -408,7 +408,7 @@ c.自定义继承自 NSOperation 的子类，通过实现内部相应的方法�
                     
                     
                       <a href="/post/eyujn26d.html">
-                        <span class="hidden-mobile">iOS控件自适应大小</span>
+                        <span class="hidden-mobile">【11】iOS控件自适应大小【iOS笔记】</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
